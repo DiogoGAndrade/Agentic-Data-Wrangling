@@ -1,0 +1,14 @@
+{
+  "adult": {
+    "dataset_description": "UCI Census Income dataset. Predicts whether annual income exceeds $50K based on demographic features. Contains 8 nominal categorical columns (workclass, education, marital_status, occupation, relationship, race, sex, native_country) with no natural ordering except education (but education_num already encodes this). No true ID columns.",
+    "downstream_model": "Logistic Regression (linear model)",
+    "must_do": [
+      "handle_missing",
+      "encode_categorical with one_hot for nominal columns"
+    ],
+    "must_not_do": [
+      "Do NOT use ordinal encoding on nominal categories"
+    ],
+    "notes": "Dataset domain: demographics/census. Categorical nature: mostly nominal (no natural ordering). High-cardinality columns: native_country (41 values), occupation (14), education (16). ML model encoding guidance: One-hot encoding is ESSENTIAL for nominal categories. This model assumes linear relationships — ordinal encoding of nominal features creates false ordinal assumptions that degrade performance. Only use ordinal for truly ordered categories."
+  }
+}

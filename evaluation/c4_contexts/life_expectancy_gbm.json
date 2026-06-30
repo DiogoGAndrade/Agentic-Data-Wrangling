@@ -1,0 +1,17 @@
+{
+  "life_expectancy": {
+    "dataset_description": "WHO Life Expectancy dataset. Regression task predicting life expectancy from health, economic, and demographic indicators across 183 countries. Country has very high cardinality (183 values). Status is binary ordinal.",
+    "downstream_model": "Gradient Boosting Machine (tree-based ensemble)",
+    "column_semantics": {
+      "Country": "nominal — country name, high cardinality (183 unique)",
+      "Status": "ordinal — development status (Developing < Developed)"
+    },
+    "redundant_features": [],
+    "must_do": [
+      "handle_missing",
+      "encode_categorical_per_column with ordinal as default for tree-based efficiency"
+    ],
+    "must_not_do": [],
+    "notes": "Tree-based model (gbm): ordinal encoding is efficient for all categoricals. Trees split on thresholds, so ordinal values work regardless of natural ordering. Outlier clipping is optional (trees are robust to outliers). Feature selection can reduce overfitting on wide datasets."
+  }
+}

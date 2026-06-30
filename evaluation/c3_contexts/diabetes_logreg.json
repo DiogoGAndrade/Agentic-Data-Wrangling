@@ -1,0 +1,14 @@
+{
+  "diabetes": {
+    "dataset_description": "UCI 130-US Hospitals Diabetes dataset. Predicts hospital readmission for diabetic patients. Contains many categorical medical codes (admission_type_id, discharge_disposition_id, admission_source_id) and medication columns with values like 'No', 'Up', 'Down', 'Steady'. Leakage columns encounter_id and patient_nbr already removed.",
+    "downstream_model": "Logistic Regression (linear model)",
+    "must_do": [
+      "handle_missing",
+      "encode_categorical with one_hot for nominal columns"
+    ],
+    "must_not_do": [
+      "Do NOT use ordinal encoding on nominal categories"
+    ],
+    "notes": "Dataset domain: medical/clinical. Categorical nature: mix of nominal (race, gender) and ordinal-like (medication dosage changes: No/Steady/Up/Down). High-cardinality columns: diag_1, diag_2, diag_3 (ICD codes, very high cardinality). ML model encoding guidance: One-hot encoding is ESSENTIAL for nominal categories. This model assumes linear relationships — ordinal encoding of nominal features creates false ordinal assumptions that degrade performance. Only use ordinal for truly ordered categories."
+  }
+}

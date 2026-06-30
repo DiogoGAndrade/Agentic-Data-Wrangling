@@ -1,0 +1,25 @@
+{
+  "adult": {
+    "dataset_description": "UCI Census Income dataset. Predicts whether annual income exceeds $50K based on demographic features. education_num is a numeric re-encoding of the education column and should be dropped as redundant. fnlwgt is a census sampling weight, not a predictor.",
+    "downstream_model": "Random Forest (tree-based ensemble)",
+    "column_semantics": {
+      "workclass": "nominal — employment sector, no natural order",
+      "education": "ordinal — ordered education level (Preschool < ... < Doctorate)",
+      "marital_status": "nominal — marital category, no order",
+      "occupation": "nominal — job type, no order",
+      "relationship": "nominal — family role, no order",
+      "race": "nominal — racial category, no order",
+      "sex": "nominal — binary gender, no order",
+      "native_country": "nominal — country of origin, no order (high cardinality: 41 values)"
+    },
+    "redundant_features": [
+      "education_num"
+    ],
+    "must_do": [
+      "handle_missing",
+      "encode_categorical_per_column with ordinal as default for tree-based efficiency"
+    ],
+    "must_not_do": [],
+    "notes": "Tree-based model (rf): ordinal encoding is efficient for all categoricals. Trees split on thresholds, so ordinal values work regardless of natural ordering. Outlier clipping is optional (trees are robust to outliers). Feature selection can reduce overfitting on wide datasets."
+  }
+}

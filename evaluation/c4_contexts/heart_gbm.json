@@ -1,0 +1,23 @@
+{
+  "heart": {
+    "dataset_description": "UCI Heart Disease dataset (Cleveland). Classification: predicts presence of heart disease (binary). Small dataset (303 rows, 14 columns). All features are already numeric — some (cp, thal, restecg) are integer-encoded categoricals that may benefit from one-hot encoding for linear/distance models. Very low missing rate (0.1%).",
+    "downstream_model": "Gradient Boosting Machine (tree-based ensemble)",
+    "column_semantics": {
+      "cp": "nominal — chest pain type (0-3), integer-encoded categorical",
+      "thal": "nominal — thalassemia (0-3), integer-encoded categorical",
+      "slope": "ordinal — ST slope (0 < 1 < 2)",
+      "restecg": "nominal — resting ECG (0-2), integer-encoded",
+      "fbs": "nominal — fasting blood sugar >120 (binary 0/1)",
+      "exang": "nominal — exercise-induced angina (binary 0/1)",
+      "sex": "nominal — sex (binary 0/1)",
+      "ca": "ordinal — number of major vessels colored by fluoroscopy (0-3)"
+    },
+    "redundant_features": [],
+    "must_do": [
+      "handle_missing",
+      "encode_categorical_per_column with ordinal as default for tree-based efficiency"
+    ],
+    "must_not_do": [],
+    "notes": "Tree-based model (gbm): ordinal encoding is efficient for all categoricals. Trees split on thresholds, so ordinal values work regardless of natural ordering. Outlier clipping is optional (trees are robust to outliers). Feature selection can reduce overfitting on wide datasets."
+  }
+}

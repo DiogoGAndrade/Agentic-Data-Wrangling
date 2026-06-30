@@ -1,0 +1,111 @@
+{
+  "actions": [
+    {
+      "action": "handle_missing",
+      "target_columns": ["max_glu_serum", "A1Cresult", "weight"],
+      "params": {"strategy": "most_frequent"}
+    },
+    {
+      "action": "add_missing_indicators",
+      "target_columns": ["max_glu_serum", "A1Cresult", "weight"],
+      "params": {"min_na_rate": 0.05, "max_indicators": 10}
+    },
+    {
+      "action": "group_rare_categories",
+      "target_columns": [
+        "race",
+        "gender",
+        "age",
+        "weight",
+        "payer_code",
+        "medical_specialty",
+        "diag_1",
+        "diag_2",
+        "diag_3"
+      ],
+      "params": {"min_frequency_pct": 0.01, "replacement_label": "Other"}
+    },
+    {
+      "action": "clip_outliers",
+      "target_columns": [
+        "admission_type_id",
+        "discharge_disposition_id",
+        "admission_source_id",
+        "time_in_hospital",
+        "num_lab_procedures",
+        "num_procedures",
+        "num_medications",
+        "number_outpatient",
+        "number_emergency",
+        "number_inpatient",
+        "number_diagnoses"
+      ],
+      "params": {"method": "iqr", "iqr_k": 1.5}
+    },
+    {
+      "action": "transform_numeric_skewed",
+      "target_columns": [
+        "num_lab_procedures",
+        "num_medications",
+        "number_outpatient",
+        "number_emergency",
+        "number_inpatient"
+      ],
+      "params": {"skewness_threshold": 0.75, "method": "log1p", "model_family": "linear"}
+    },
+    {
+      "action": "encode_categorical_per_column",
+      "target_columns": [
+        "race",
+        "gender",
+        "age",
+        "weight",
+        "payer_code",
+        "medical_specialty",
+        "diag_1",
+        "diag_2",
+        "diag_3",
+        "max_glu_serum",
+        "A1Cresult",
+        "metformin",
+        "repaglinide",
+        "nateglinide",
+        "chlorpropamide",
+        "glimepiride",
+        "acetohexamide",
+        "glipizide",
+        "glyburide",
+        "tolbutamide",
+        "pioglitazone",
+        "rosiglitazone",
+        "acarbose",
+        "miglitol",
+        "troglitazone",
+        "tolazamide",
+        "examide",
+        "citoglipton",
+        "insulin",
+        "glyburide-metformin",
+        "glipizide-metformin",
+        "glimepiride-pioglitazone",
+        "metformin-rosiglitazone",
+        "metformin-pioglitazone",
+        "change",
+        "diabetesMed",
+        "readmitted"
+      ],
+      "params": {
+        "column_encodings": {
+          "age": "ordinal",
+          "weight": "ordinal",
+          "max_glu_serum": "ordinal",
+          "A1Cresult": "ordinal",
+          "change": "ordinal",
+          "diabetesMed": "ordinal",
+          "readmitted": "ordinal"
+        },
+        "default_method": "one_hot"
+      }
+    }
+  ]
+}

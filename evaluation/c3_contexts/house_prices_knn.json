@@ -1,0 +1,12 @@
+{
+  "house_prices": {
+    "dataset_description": "Kaggle Ames Housing dataset. Predicts house sale price (continuous). Contains 43 categorical columns and 37 numeric. Many ordinal categories with quality ratings (ExterQual, BsmtQual, KitchenQual, HeatingQC, FireplaceQu, GarageQual, GarageCond, PoolQC: Ex>Gd>TA>Fa>Po). Some nominal (Neighborhood 25 values, Exterior1st 15, Foundation 6, SaleType 9). High missing values in Alley, PoolQC, Fence, MiscFeature, FireplaceQu. Leakage column Id already removed.",
+    "downstream_model": "K-Nearest Neighbors (distance-based model)",
+    "must_do": [
+      "handle_missing",
+      "encode_categorical"
+    ],
+    "must_not_do": [],
+    "notes": "Dataset domain: real estate. Categorical nature: mix of ordinal (quality ratings) and nominal (neighborhood, style). One-hot encoding for nominal categories, ordinal for quality ratings. Scaling critical. Warning: high dimensionality from 43 categorical columns may hurt KNN."
+  }
+}

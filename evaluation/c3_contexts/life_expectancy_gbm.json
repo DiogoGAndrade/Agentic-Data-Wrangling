@@ -1,0 +1,12 @@
+{
+  "life_expectancy": {
+    "dataset_description": "WHO Life Expectancy dataset. Predicts life expectancy (regression). Contains country, status (Developed/Developing), and numeric health/economic indicators. Very few categorical columns — mainly 'Country' (high cardinality) and 'Status' (2 values).",
+    "downstream_model": "Gradient Boosting Machine (tree-based ensemble)",
+    "must_do": [
+      "handle_missing",
+      "encode_categorical with ordinal for tree-based efficiency"
+    ],
+    "must_not_do": [],
+    "notes": "Dataset domain: public health/economics. Categorical nature: Country is nominal high-cardinality, Status is binary. High-cardinality columns: Country (~193 unique values). ML model encoding guidance: Ordinal encoding is efficient and appropriate, same as Random Forest. GBM builds trees sequentially and benefits from compact feature representation. High-cardinality columns are better encoded as ordinal to avoid sparse feature matrices."
+  }
+}

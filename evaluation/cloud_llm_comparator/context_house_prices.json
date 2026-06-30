@@ -1,0 +1,1091 @@
+{
+  "dataset": "house_prices",
+  "task_type": "regression",
+  "target_column": "SalePrice",
+  "n_rows": 1460,
+  "n_cols": 80,
+  "schema": {
+    "MSSubClass": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 15
+    },
+    "MSZoning": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 5,
+      "sample_values": [
+        "RL",
+        "RM",
+        "FV",
+        "RH",
+        "C (all)"
+      ]
+    },
+    "LotFrontage": {
+      "dtype": "float64",
+      "missing_pct": 17.7,
+      "n_unique": 110
+    },
+    "LotArea": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 1073
+    },
+    "Street": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "Pave",
+        "Grvl"
+      ]
+    },
+    "Alley": {
+      "dtype": "object",
+      "missing_pct": 93.8,
+      "n_unique": 2,
+      "sample_values": [
+        "Grvl",
+        "Pave"
+      ]
+    },
+    "LotShape": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "Reg",
+        "IR1",
+        "IR2",
+        "IR3"
+      ]
+    },
+    "LandContour": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "Lvl",
+        "Bnk",
+        "HLS",
+        "Low"
+      ]
+    },
+    "Utilities": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "AllPub",
+        "NoSeWa"
+      ]
+    },
+    "LotConfig": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 5,
+      "sample_values": [
+        "Inside",
+        "Corner",
+        "CulDSac",
+        "FR2",
+        "FR3"
+      ]
+    },
+    "LandSlope": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 3,
+      "sample_values": [
+        "Gtl",
+        "Mod",
+        "Sev"
+      ]
+    },
+    "Neighborhood": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 25,
+      "sample_values": [
+        "NAmes",
+        "CollgCr",
+        "OldTown",
+        "Edwards",
+        "Somerst"
+      ]
+    },
+    "Condition1": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 9,
+      "sample_values": [
+        "Norm",
+        "Feedr",
+        "Artery",
+        "RRAn",
+        "PosN"
+      ]
+    },
+    "Condition2": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 8,
+      "sample_values": [
+        "Norm",
+        "Feedr",
+        "Artery",
+        "RRNn",
+        "PosN"
+      ]
+    },
+    "BldgType": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 5,
+      "sample_values": [
+        "1Fam",
+        "TwnhsE",
+        "Duplex",
+        "Twnhs",
+        "2fmCon"
+      ]
+    },
+    "HouseStyle": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 8,
+      "sample_values": [
+        "1Story",
+        "2Story",
+        "1.5Fin",
+        "SLvl",
+        "SFoyer"
+      ]
+    },
+    "OverallQual": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 10
+    },
+    "OverallCond": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 9
+    },
+    "YearBuilt": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 112
+    },
+    "YearRemodAdd": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 61
+    },
+    "RoofStyle": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 6,
+      "sample_values": [
+        "Gable",
+        "Hip",
+        "Flat",
+        "Gambrel",
+        "Mansard"
+      ]
+    },
+    "RoofMatl": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 8,
+      "sample_values": [
+        "CompShg",
+        "Tar&Grv",
+        "WdShngl",
+        "WdShake",
+        "Metal"
+      ]
+    },
+    "Exterior1st": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 15,
+      "sample_values": [
+        "VinylSd",
+        "HdBoard",
+        "MetalSd",
+        "Wd Sdng",
+        "Plywood"
+      ]
+    },
+    "Exterior2nd": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 16,
+      "sample_values": [
+        "VinylSd",
+        "MetalSd",
+        "HdBoard",
+        "Wd Sdng",
+        "Plywood"
+      ]
+    },
+    "MasVnrType": {
+      "dtype": "object",
+      "missing_pct": 59.7,
+      "n_unique": 3,
+      "sample_values": [
+        "BrkFace",
+        "Stone",
+        "BrkCmn"
+      ]
+    },
+    "MasVnrArea": {
+      "dtype": "float64",
+      "missing_pct": 0.5,
+      "n_unique": 327
+    },
+    "ExterQual": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "TA",
+        "Gd",
+        "Ex",
+        "Fa"
+      ]
+    },
+    "ExterCond": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 5,
+      "sample_values": [
+        "TA",
+        "Gd",
+        "Fa",
+        "Ex",
+        "Po"
+      ]
+    },
+    "Foundation": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 6,
+      "sample_values": [
+        "PConc",
+        "CBlock",
+        "BrkTil",
+        "Slab",
+        "Stone"
+      ]
+    },
+    "BsmtQual": {
+      "dtype": "object",
+      "missing_pct": 2.5,
+      "n_unique": 4,
+      "sample_values": [
+        "TA",
+        "Gd",
+        "Ex",
+        "Fa"
+      ]
+    },
+    "BsmtCond": {
+      "dtype": "object",
+      "missing_pct": 2.5,
+      "n_unique": 4,
+      "sample_values": [
+        "TA",
+        "Gd",
+        "Fa",
+        "Po"
+      ]
+    },
+    "BsmtExposure": {
+      "dtype": "object",
+      "missing_pct": 2.6,
+      "n_unique": 4,
+      "sample_values": [
+        "No",
+        "Av",
+        "Gd",
+        "Mn"
+      ]
+    },
+    "BsmtFinType1": {
+      "dtype": "object",
+      "missing_pct": 2.5,
+      "n_unique": 6,
+      "sample_values": [
+        "Unf",
+        "GLQ",
+        "ALQ",
+        "BLQ",
+        "Rec"
+      ]
+    },
+    "BsmtFinSF1": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 637
+    },
+    "BsmtFinType2": {
+      "dtype": "object",
+      "missing_pct": 2.6,
+      "n_unique": 6,
+      "sample_values": [
+        "Unf",
+        "Rec",
+        "LwQ",
+        "BLQ",
+        "ALQ"
+      ]
+    },
+    "BsmtFinSF2": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 144
+    },
+    "BsmtUnfSF": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 780
+    },
+    "TotalBsmtSF": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 721
+    },
+    "Heating": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 6,
+      "sample_values": [
+        "GasA",
+        "GasW",
+        "Grav",
+        "Wall",
+        "OthW"
+      ]
+    },
+    "HeatingQC": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 5,
+      "sample_values": [
+        "Ex",
+        "TA",
+        "Gd",
+        "Fa",
+        "Po"
+      ]
+    },
+    "CentralAir": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "Y",
+        "N"
+      ]
+    },
+    "Electrical": {
+      "dtype": "object",
+      "missing_pct": 0.1,
+      "n_unique": 5,
+      "sample_values": [
+        "SBrkr",
+        "FuseA",
+        "FuseF",
+        "FuseP",
+        "Mix"
+      ]
+    },
+    "1stFlrSF": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 753
+    },
+    "2ndFlrSF": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 417
+    },
+    "LowQualFinSF": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 24
+    },
+    "GrLivArea": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 861
+    },
+    "BsmtFullBath": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 4
+    },
+    "BsmtHalfBath": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 3
+    },
+    "FullBath": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 4
+    },
+    "HalfBath": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 3
+    },
+    "BedroomAbvGr": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 8
+    },
+    "KitchenAbvGr": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 4
+    },
+    "KitchenQual": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "TA",
+        "Gd",
+        "Ex",
+        "Fa"
+      ]
+    },
+    "TotRmsAbvGrd": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 12
+    },
+    "Functional": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 7,
+      "sample_values": [
+        "Typ",
+        "Min2",
+        "Min1",
+        "Mod",
+        "Maj1"
+      ]
+    },
+    "Fireplaces": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 4
+    },
+    "FireplaceQu": {
+      "dtype": "object",
+      "missing_pct": 47.3,
+      "n_unique": 5,
+      "sample_values": [
+        "Gd",
+        "TA",
+        "Fa",
+        "Ex",
+        "Po"
+      ]
+    },
+    "GarageType": {
+      "dtype": "object",
+      "missing_pct": 5.5,
+      "n_unique": 6,
+      "sample_values": [
+        "Attchd",
+        "Detchd",
+        "BuiltIn",
+        "Basment",
+        "CarPort"
+      ]
+    },
+    "GarageYrBlt": {
+      "dtype": "float64",
+      "missing_pct": 5.5,
+      "n_unique": 97
+    },
+    "GarageFinish": {
+      "dtype": "object",
+      "missing_pct": 5.5,
+      "n_unique": 3,
+      "sample_values": [
+        "Unf",
+        "RFn",
+        "Fin"
+      ]
+    },
+    "GarageCars": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 5
+    },
+    "GarageArea": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 441
+    },
+    "GarageQual": {
+      "dtype": "object",
+      "missing_pct": 5.5,
+      "n_unique": 5,
+      "sample_values": [
+        "TA",
+        "Fa",
+        "Gd",
+        "Ex",
+        "Po"
+      ]
+    },
+    "GarageCond": {
+      "dtype": "object",
+      "missing_pct": 5.5,
+      "n_unique": 5,
+      "sample_values": [
+        "TA",
+        "Fa",
+        "Gd",
+        "Po",
+        "Ex"
+      ]
+    },
+    "PavedDrive": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 3,
+      "sample_values": [
+        "Y",
+        "N",
+        "P"
+      ]
+    },
+    "WoodDeckSF": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 274
+    },
+    "OpenPorchSF": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 202
+    },
+    "EnclosedPorch": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 120
+    },
+    "3SsnPorch": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 20
+    },
+    "ScreenPorch": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 76
+    },
+    "PoolArea": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 8
+    },
+    "PoolQC": {
+      "dtype": "object",
+      "missing_pct": 99.5,
+      "n_unique": 3,
+      "sample_values": [
+        "Gd",
+        "Ex",
+        "Fa"
+      ]
+    },
+    "Fence": {
+      "dtype": "object",
+      "missing_pct": 80.8,
+      "n_unique": 4,
+      "sample_values": [
+        "MnPrv",
+        "GdPrv",
+        "GdWo",
+        "MnWw"
+      ]
+    },
+    "MiscFeature": {
+      "dtype": "object",
+      "missing_pct": 96.3,
+      "n_unique": 4,
+      "sample_values": [
+        "Shed",
+        "Gar2",
+        "Othr",
+        "TenC"
+      ]
+    },
+    "MiscVal": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 21
+    },
+    "MoSold": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 12
+    },
+    "YrSold": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 5
+    },
+    "SaleType": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 9,
+      "sample_values": [
+        "WD",
+        "New",
+        "COD",
+        "ConLD",
+        "ConLI"
+      ]
+    },
+    "SaleCondition": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 6,
+      "sample_values": [
+        "Normal",
+        "Partial",
+        "Abnorml",
+        "Family",
+        "Alloca"
+      ]
+    },
+    "SalePrice": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 663
+    }
+  },
+  "sample_rows": [
+    {
+      "MSSubClass": 60,
+      "MSZoning": "RL",
+      "LotFrontage": 65.0,
+      "LotArea": 8450,
+      "Street": "Pave",
+      "Alley": null,
+      "LotShape": "Reg",
+      "LandContour": "Lvl",
+      "Utilities": "AllPub",
+      "LotConfig": "Inside",
+      "LandSlope": "Gtl",
+      "Neighborhood": "CollgCr",
+      "Condition1": "Norm",
+      "Condition2": "Norm",
+      "BldgType": "1Fam",
+      "HouseStyle": "2Story",
+      "OverallQual": 7,
+      "OverallCond": 5,
+      "YearBuilt": 2003,
+      "YearRemodAdd": 2003,
+      "RoofStyle": "Gable",
+      "RoofMatl": "CompShg",
+      "Exterior1st": "VinylSd",
+      "Exterior2nd": "VinylSd",
+      "MasVnrType": "BrkFace",
+      "MasVnrArea": 196.0,
+      "ExterQual": "Gd",
+      "ExterCond": "TA",
+      "Foundation": "PConc",
+      "BsmtQual": "Gd",
+      "BsmtCond": "TA",
+      "BsmtExposure": "No",
+      "BsmtFinType1": "GLQ",
+      "BsmtFinSF1": 706,
+      "BsmtFinType2": "Unf",
+      "BsmtFinSF2": 0,
+      "BsmtUnfSF": 150,
+      "TotalBsmtSF": 856,
+      "Heating": "GasA",
+      "HeatingQC": "Ex",
+      "CentralAir": "Y",
+      "Electrical": "SBrkr",
+      "1stFlrSF": 856,
+      "2ndFlrSF": 854,
+      "LowQualFinSF": 0,
+      "GrLivArea": 1710,
+      "BsmtFullBath": 1,
+      "BsmtHalfBath": 0,
+      "FullBath": 2,
+      "HalfBath": 1,
+      "BedroomAbvGr": 3,
+      "KitchenAbvGr": 1,
+      "KitchenQual": "Gd",
+      "TotRmsAbvGrd": 8,
+      "Functional": "Typ",
+      "Fireplaces": 0,
+      "FireplaceQu": null,
+      "GarageType": "Attchd",
+      "GarageYrBlt": 2003.0,
+      "GarageFinish": "RFn",
+      "GarageCars": 2,
+      "GarageArea": 548,
+      "GarageQual": "TA",
+      "GarageCond": "TA",
+      "PavedDrive": "Y",
+      "WoodDeckSF": 0,
+      "OpenPorchSF": 61,
+      "EnclosedPorch": 0,
+      "3SsnPorch": 0,
+      "ScreenPorch": 0,
+      "PoolArea": 0,
+      "PoolQC": null,
+      "Fence": null,
+      "MiscFeature": null,
+      "MiscVal": 0,
+      "MoSold": 2,
+      "YrSold": 2008,
+      "SaleType": "WD",
+      "SaleCondition": "Normal",
+      "SalePrice": 208500
+    },
+    {
+      "MSSubClass": 20,
+      "MSZoning": "RL",
+      "LotFrontage": 80.0,
+      "LotArea": 9600,
+      "Street": "Pave",
+      "Alley": null,
+      "LotShape": "Reg",
+      "LandContour": "Lvl",
+      "Utilities": "AllPub",
+      "LotConfig": "FR2",
+      "LandSlope": "Gtl",
+      "Neighborhood": "Veenker",
+      "Condition1": "Feedr",
+      "Condition2": "Norm",
+      "BldgType": "1Fam",
+      "HouseStyle": "1Story",
+      "OverallQual": 6,
+      "OverallCond": 8,
+      "YearBuilt": 1976,
+      "YearRemodAdd": 1976,
+      "RoofStyle": "Gable",
+      "RoofMatl": "CompShg",
+      "Exterior1st": "MetalSd",
+      "Exterior2nd": "MetalSd",
+      "MasVnrType": null,
+      "MasVnrArea": 0.0,
+      "ExterQual": "TA",
+      "ExterCond": "TA",
+      "Foundation": "CBlock",
+      "BsmtQual": "Gd",
+      "BsmtCond": "TA",
+      "BsmtExposure": "Gd",
+      "BsmtFinType1": "ALQ",
+      "BsmtFinSF1": 978,
+      "BsmtFinType2": "Unf",
+      "BsmtFinSF2": 0,
+      "BsmtUnfSF": 284,
+      "TotalBsmtSF": 1262,
+      "Heating": "GasA",
+      "HeatingQC": "Ex",
+      "CentralAir": "Y",
+      "Electrical": "SBrkr",
+      "1stFlrSF": 1262,
+      "2ndFlrSF": 0,
+      "LowQualFinSF": 0,
+      "GrLivArea": 1262,
+      "BsmtFullBath": 0,
+      "BsmtHalfBath": 1,
+      "FullBath": 2,
+      "HalfBath": 0,
+      "BedroomAbvGr": 3,
+      "KitchenAbvGr": 1,
+      "KitchenQual": "TA",
+      "TotRmsAbvGrd": 6,
+      "Functional": "Typ",
+      "Fireplaces": 1,
+      "FireplaceQu": "TA",
+      "GarageType": "Attchd",
+      "GarageYrBlt": 1976.0,
+      "GarageFinish": "RFn",
+      "GarageCars": 2,
+      "GarageArea": 460,
+      "GarageQual": "TA",
+      "GarageCond": "TA",
+      "PavedDrive": "Y",
+      "WoodDeckSF": 298,
+      "OpenPorchSF": 0,
+      "EnclosedPorch": 0,
+      "3SsnPorch": 0,
+      "ScreenPorch": 0,
+      "PoolArea": 0,
+      "PoolQC": null,
+      "Fence": null,
+      "MiscFeature": null,
+      "MiscVal": 0,
+      "MoSold": 5,
+      "YrSold": 2007,
+      "SaleType": "WD",
+      "SaleCondition": "Normal",
+      "SalePrice": 181500
+    },
+    {
+      "MSSubClass": 60,
+      "MSZoning": "RL",
+      "LotFrontage": 68.0,
+      "LotArea": 11250,
+      "Street": "Pave",
+      "Alley": null,
+      "LotShape": "IR1",
+      "LandContour": "Lvl",
+      "Utilities": "AllPub",
+      "LotConfig": "Inside",
+      "LandSlope": "Gtl",
+      "Neighborhood": "CollgCr",
+      "Condition1": "Norm",
+      "Condition2": "Norm",
+      "BldgType": "1Fam",
+      "HouseStyle": "2Story",
+      "OverallQual": 7,
+      "OverallCond": 5,
+      "YearBuilt": 2001,
+      "YearRemodAdd": 2002,
+      "RoofStyle": "Gable",
+      "RoofMatl": "CompShg",
+      "Exterior1st": "VinylSd",
+      "Exterior2nd": "VinylSd",
+      "MasVnrType": "BrkFace",
+      "MasVnrArea": 162.0,
+      "ExterQual": "Gd",
+      "ExterCond": "TA",
+      "Foundation": "PConc",
+      "BsmtQual": "Gd",
+      "BsmtCond": "TA",
+      "BsmtExposure": "Mn",
+      "BsmtFinType1": "GLQ",
+      "BsmtFinSF1": 486,
+      "BsmtFinType2": "Unf",
+      "BsmtFinSF2": 0,
+      "BsmtUnfSF": 434,
+      "TotalBsmtSF": 920,
+      "Heating": "GasA",
+      "HeatingQC": "Ex",
+      "CentralAir": "Y",
+      "Electrical": "SBrkr",
+      "1stFlrSF": 920,
+      "2ndFlrSF": 866,
+      "LowQualFinSF": 0,
+      "GrLivArea": 1786,
+      "BsmtFullBath": 1,
+      "BsmtHalfBath": 0,
+      "FullBath": 2,
+      "HalfBath": 1,
+      "BedroomAbvGr": 3,
+      "KitchenAbvGr": 1,
+      "KitchenQual": "Gd",
+      "TotRmsAbvGrd": 6,
+      "Functional": "Typ",
+      "Fireplaces": 1,
+      "FireplaceQu": "TA",
+      "GarageType": "Attchd",
+      "GarageYrBlt": 2001.0,
+      "GarageFinish": "RFn",
+      "GarageCars": 2,
+      "GarageArea": 608,
+      "GarageQual": "TA",
+      "GarageCond": "TA",
+      "PavedDrive": "Y",
+      "WoodDeckSF": 0,
+      "OpenPorchSF": 42,
+      "EnclosedPorch": 0,
+      "3SsnPorch": 0,
+      "ScreenPorch": 0,
+      "PoolArea": 0,
+      "PoolQC": null,
+      "Fence": null,
+      "MiscFeature": null,
+      "MiscVal": 0,
+      "MoSold": 9,
+      "YrSold": 2008,
+      "SaleType": "WD",
+      "SaleCondition": "Normal",
+      "SalePrice": 223500
+    },
+    {
+      "MSSubClass": 70,
+      "MSZoning": "RL",
+      "LotFrontage": 60.0,
+      "LotArea": 9550,
+      "Street": "Pave",
+      "Alley": null,
+      "LotShape": "IR1",
+      "LandContour": "Lvl",
+      "Utilities": "AllPub",
+      "LotConfig": "Corner",
+      "LandSlope": "Gtl",
+      "Neighborhood": "Crawfor",
+      "Condition1": "Norm",
+      "Condition2": "Norm",
+      "BldgType": "1Fam",
+      "HouseStyle": "2Story",
+      "OverallQual": 7,
+      "OverallCond": 5,
+      "YearBuilt": 1915,
+      "YearRemodAdd": 1970,
+      "RoofStyle": "Gable",
+      "RoofMatl": "CompShg",
+      "Exterior1st": "Wd Sdng",
+      "Exterior2nd": "Wd Shng",
+      "MasVnrType": null,
+      "MasVnrArea": 0.0,
+      "ExterQual": "TA",
+      "ExterCond": "TA",
+      "Foundation": "BrkTil",
+      "BsmtQual": "TA",
+      "BsmtCond": "Gd",
+      "BsmtExposure": "No",
+      "BsmtFinType1": "ALQ",
+      "BsmtFinSF1": 216,
+      "BsmtFinType2": "Unf",
+      "BsmtFinSF2": 0,
+      "BsmtUnfSF": 540,
+      "TotalBsmtSF": 756,
+      "Heating": "GasA",
+      "HeatingQC": "Gd",
+      "CentralAir": "Y",
+      "Electrical": "SBrkr",
+      "1stFlrSF": 961,
+      "2ndFlrSF": 756,
+      "LowQualFinSF": 0,
+      "GrLivArea": 1717,
+      "BsmtFullBath": 1,
+      "BsmtHalfBath": 0,
+      "FullBath": 1,
+      "HalfBath": 0,
+      "BedroomAbvGr": 3,
+      "KitchenAbvGr": 1,
+      "KitchenQual": "Gd",
+      "TotRmsAbvGrd": 7,
+      "Functional": "Typ",
+      "Fireplaces": 1,
+      "FireplaceQu": "Gd",
+      "GarageType": "Detchd",
+      "GarageYrBlt": 1998.0,
+      "GarageFinish": "Unf",
+      "GarageCars": 3,
+      "GarageArea": 642,
+      "GarageQual": "TA",
+      "GarageCond": "TA",
+      "PavedDrive": "Y",
+      "WoodDeckSF": 0,
+      "OpenPorchSF": 35,
+      "EnclosedPorch": 272,
+      "3SsnPorch": 0,
+      "ScreenPorch": 0,
+      "PoolArea": 0,
+      "PoolQC": null,
+      "Fence": null,
+      "MiscFeature": null,
+      "MiscVal": 0,
+      "MoSold": 2,
+      "YrSold": 2006,
+      "SaleType": "WD",
+      "SaleCondition": "Abnorml",
+      "SalePrice": 140000
+    },
+    {
+      "MSSubClass": 60,
+      "MSZoning": "RL",
+      "LotFrontage": 84.0,
+      "LotArea": 14260,
+      "Street": "Pave",
+      "Alley": null,
+      "LotShape": "IR1",
+      "LandContour": "Lvl",
+      "Utilities": "AllPub",
+      "LotConfig": "FR2",
+      "LandSlope": "Gtl",
+      "Neighborhood": "NoRidge",
+      "Condition1": "Norm",
+      "Condition2": "Norm",
+      "BldgType": "1Fam",
+      "HouseStyle": "2Story",
+      "OverallQual": 8,
+      "OverallCond": 5,
+      "YearBuilt": 2000,
+      "YearRemodAdd": 2000,
+      "RoofStyle": "Gable",
+      "RoofMatl": "CompShg",
+      "Exterior1st": "VinylSd",
+      "Exterior2nd": "VinylSd",
+      "MasVnrType": "BrkFace",
+      "MasVnrArea": 350.0,
+      "ExterQual": "Gd",
+      "ExterCond": "TA",
+      "Foundation": "PConc",
+      "BsmtQual": "Gd",
+      "BsmtCond": "TA",
+      "BsmtExposure": "Av",
+      "BsmtFinType1": "GLQ",
+      "BsmtFinSF1": 655,
+      "BsmtFinType2": "Unf",
+      "BsmtFinSF2": 0,
+      "BsmtUnfSF": 490,
+      "TotalBsmtSF": 1145,
+      "Heating": "GasA",
+      "HeatingQC": "Ex",
+      "CentralAir": "Y",
+      "Electrical": "SBrkr",
+      "1stFlrSF": 1145,
+      "2ndFlrSF": 1053,
+      "LowQualFinSF": 0,
+      "GrLivArea": 2198,
+      "BsmtFullBath": 1,
+      "BsmtHalfBath": 0,
+      "FullBath": 2,
+      "HalfBath": 1,
+      "BedroomAbvGr": 4,
+      "KitchenAbvGr": 1,
+      "KitchenQual": "Gd",
+      "TotRmsAbvGrd": 9,
+      "Functional": "Typ",
+      "Fireplaces": 1,
+      "FireplaceQu": "TA",
+      "GarageType": "Attchd",
+      "GarageYrBlt": 2000.0,
+      "GarageFinish": "RFn",
+      "GarageCars": 3,
+      "GarageArea": 836,
+      "GarageQual": "TA",
+      "GarageCond": "TA",
+      "PavedDrive": "Y",
+      "WoodDeckSF": 192,
+      "OpenPorchSF": 84,
+      "EnclosedPorch": 0,
+      "3SsnPorch": 0,
+      "ScreenPorch": 0,
+      "PoolArea": 0,
+      "PoolQC": null,
+      "Fence": null,
+      "MiscFeature": null,
+      "MiscVal": 0,
+      "MoSold": 12,
+      "YrSold": 2008,
+      "SaleType": "WD",
+      "SaleCondition": "Normal",
+      "SalePrice": 250000
+    }
+  ]
+}

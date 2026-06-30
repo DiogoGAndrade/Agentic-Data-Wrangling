@@ -1,0 +1,14 @@
+{
+  "student": {
+    "dataset_description": "UCI Student Performance dataset (Open University). Predicts student final result (Pass/Fail/Distinction/Withdrawn). Contains demographic and behavioral columns. Many categorical columns with low cardinality. Student ID already removed.",
+    "downstream_model": "K-Nearest Neighbors (distance-based model)",
+    "must_do": [
+      "handle_missing",
+      "encode_categorical with one_hot for nominal columns"
+    ],
+    "must_not_do": [
+      "Do NOT use ordinal encoding on nominal categories"
+    ],
+    "notes": "Dataset domain: education. Categorical nature: mostly nominal with low cardinality (region, highest_education, disability). High-cardinality columns: code_module and code_presentation have moderate cardinality. ML model encoding guidance: One-hot encoding is strongly preferred. KNN uses Euclidean distance — ordinal encoding of nominal features makes distance meaningless (distance between 'race=1' and 'race=3' would be 2, implying they're more different than 'race=1' and 'race=2'). One-hot preserves equal distances between categories."
+  }
+}

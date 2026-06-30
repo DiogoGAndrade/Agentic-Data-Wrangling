@@ -1,0 +1,12 @@
+{
+  "life_expectancy": {
+    "dataset_description": "WHO Life Expectancy dataset. Predicts life expectancy (regression). Contains country, status (Developed/Developing), and numeric health/economic indicators. Very few categorical columns — mainly 'Country' (high cardinality) and 'Status' (2 values).",
+    "downstream_model": "Random Forest (tree-based ensemble)",
+    "must_do": [
+      "handle_missing",
+      "encode_categorical with ordinal for tree-based efficiency"
+    ],
+    "must_not_do": [],
+    "notes": "Dataset domain: public health/economics. Categorical nature: Country is nominal high-cardinality, Status is binary. High-cardinality columns: Country (~193 unique values). ML model encoding guidance: Ordinal encoding is efficient and appropriate. Trees make binary splits at thresholds, so ordinal values work well regardless of whether categories have a natural order. This also reduces dimensionality compared to one-hot, which can improve performance with high-cardinality features."
+  }
+}

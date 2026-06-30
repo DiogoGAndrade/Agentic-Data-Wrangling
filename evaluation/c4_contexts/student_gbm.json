@@ -1,0 +1,32 @@
+{
+  "student": {
+    "dataset_description": "Portuguese student performance dataset. Predicts pass/fail from demographic, family, and school-related features. Most categorical columns are binary or low-cardinality nominal. Numeric columns (Medu, Fedu, traveltime, studytime, etc.) are ordinal integers on Likert-like scales (1-4 or 1-5) but already numeric. G1 and G2 are intermediate grades that are legitimate predictors of final_result.",
+    "downstream_model": "Gradient Boosting Machine (tree-based ensemble)",
+    "column_semantics": {
+      "school": "nominal — school identifier (GP/MS)",
+      "sex": "nominal — gender (F/M)",
+      "address": "nominal — urban/rural (U/R)",
+      "famsize": "nominal — family size (GT3/LE3)",
+      "Pstatus": "nominal — parent status (A/T)",
+      "Mjob": "nominal — mother's job, no order",
+      "Fjob": "nominal — father's job, no order",
+      "reason": "nominal — reason for choosing school",
+      "guardian": "nominal — student guardian",
+      "schoolsup": "nominal — binary (yes/no)",
+      "famsup": "nominal — binary (yes/no)",
+      "paid": "nominal — binary (yes/no)",
+      "activities": "nominal — binary (yes/no)",
+      "nursery": "nominal — binary (yes/no)",
+      "higher": "nominal — binary (yes/no)",
+      "internet": "nominal — binary (yes/no)",
+      "romantic": "nominal — binary (yes/no)"
+    },
+    "redundant_features": [],
+    "must_do": [
+      "handle_missing",
+      "encode_categorical_per_column with ordinal as default for tree-based efficiency"
+    ],
+    "must_not_do": [],
+    "notes": "Tree-based model (gbm): ordinal encoding is efficient for all categoricals. Trees split on thresholds, so ordinal values work regardless of natural ordering. Outlier clipping is optional (trees are robust to outliers). Feature selection can reduce overfitting on wide datasets."
+  }
+}

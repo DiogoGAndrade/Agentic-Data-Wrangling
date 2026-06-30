@@ -1,0 +1,25 @@
+{
+  "bank": {
+    "dataset_description": "UCI Bank Marketing dataset. Classification: predicts whether client subscribes term deposit (y=yes/no). 41K rows, 21 features. 11 categorical columns, most low-cardinality. No missing values. duration is the last call duration — highly predictive but only known after outcome, so excluding it is recommended for realistic prediction. However, it is included in the raw data.",
+    "downstream_model": "Random Forest (tree-based ensemble)",
+    "column_semantics": {
+      "job": "nominal — job type, 12 unique values",
+      "marital": "nominal — marital status (married, single, divorced, unknown)",
+      "education": "ordinal — education level (illiterate < basic.4y < basic.6y < basic.9y < high.school < professional.course < university.degree)",
+      "default": "nominal — has credit default (yes/no/unknown)",
+      "housing": "nominal — has housing loan (yes/no/unknown)",
+      "loan": "nominal — has personal loan (yes/no/unknown)",
+      "contact": "nominal — contact communication type (cellular/telephone)",
+      "month": "nominal — last contact month (no natural cycle order for marketing)",
+      "day_of_week": "nominal — last contact day (no natural order for marketing)",
+      "poutcome": "nominal — outcome of previous campaign (success/failure/nonexistent)"
+    },
+    "redundant_features": [],
+    "must_do": [
+      "handle_missing",
+      "encode_categorical_per_column with ordinal as default for tree-based efficiency"
+    ],
+    "must_not_do": [],
+    "notes": "Tree-based model (rf): ordinal encoding is efficient for all categoricals. Trees split on thresholds, so ordinal values work regardless of natural ordering. Outlier clipping is optional (trees are robust to outliers). Feature selection can reduce overfitting on wide datasets."
+  }
+}

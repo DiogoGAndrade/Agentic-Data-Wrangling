@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.streamlit/secrets.toml
+
+# Local data and experiment outputs are not versioned; see evaluation/README.md
+# for how to regenerate them.
+data/
+debug/
+evaluation/outputs/
+evaluation/debug_llm/
+evaluation/figures/
+
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,44 @@
+{
+  "diabetes": {
+    "dataset_description": "Diabetes hospital readmission prediction. 130 US hospitals, 1999-2008. Predicts whether a patient will be readmitted within 30 days. Many medication columns with ordinal semantics (No < Steady < Down < Up). examide and citoglipton have only 1 unique value and are zero-variance.",
+    "downstream_model": "Random Forest (tree-based ensemble)",
+    "column_semantics": {
+      "race": "nominal — racial category, no order",
+      "gender": "nominal — gender, no order",
+      "age": "ordinal — age bracket [0-10) < [10-20) < ... < [90-100)",
+      "weight": "ordinal — weight bracket [0-25) < [25-50) < ... (mostly missing)",
+      "payer_code": "nominal — insurance type, no order",
+      "medical_specialty": "nominal — medical specialty, no order (73 unique, high cardinality)",
+      "max_glu_serum": "ordinal — glucose level (Norm < >200 < >300)",
+      "A1Cresult": "ordinal — HbA1c result (Norm < >7 < >8)",
+      "metformin": "ordinal — medication change (No < Steady < Down < Up)",
+      "repaglinide": "ordinal — medication change (No < Steady < Down < Up)",
+      "nateglinide": "ordinal — medication change",
+      "chlorpropamide": "ordinal — medication change",
+      "glimepiride": "ordinal — medication change",
+      "glipizide": "ordinal — medication change",
+      "glyburide": "ordinal — medication change",
+      "pioglitazone": "ordinal — medication change",
+      "rosiglitazone": "ordinal — medication change",
+      "acarbose": "ordinal — medication change",
+      "miglitol": "ordinal — medication change",
+      "insulin": "ordinal — medication change",
+      "glyburide-metformin": "ordinal — medication change",
+      "change": "nominal — binary flag (Ch/No)",
+      "diabetesMed": "nominal — binary flag (Yes/No)",
+      "diag_1": "nominal — ICD-9 code, high cardinality (717 unique)",
+      "diag_2": "nominal — ICD-9 code, high cardinality",
+      "diag_3": "nominal — ICD-9 code, high cardinality"
+    },
+    "redundant_features": [
+      "examide",
+      "citoglipton"
+    ],
+    "must_do": [
+      "handle_missing",
+      "encode_categorical_per_column with ordinal as default for tree-based efficiency"
+    ],
+    "must_not_do": [],
+    "notes": "Tree-based model (rf): ordinal encoding is efficient for all categoricals. Trees split on thresholds, so ordinal values work regardless of natural ordering. Outlier clipping is optional (trees are robust to outliers). Feature selection can reduce overfitting on wide datasets."
+  }
+}

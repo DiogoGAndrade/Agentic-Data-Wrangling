@@ -1,0 +1,12 @@
+{
+  "bank": {
+    "dataset_description": "UCI Bank Marketing dataset. Predicts whether client subscribes to term deposit (binary: yes/no). Contains 10 categorical columns (job, marital, education, default, housing, loan, contact, month, day_of_week, poutcome). education has natural ordering (basic.4y < basic.6y < basic.9y < high.school < professional.course < university.degree). month and day_of_week are cyclical/nominal. High-cardinality: job (12), month (10), education (8). No true ID columns.",
+    "downstream_model": "Gradient Boosting Machine (tree-based model)",
+    "must_do": [
+      "handle_missing",
+      "encode_categorical"
+    ],
+    "must_not_do": [],
+    "notes": "Dataset domain: banking/marketing. Categorical nature: mostly nominal except education (ordinal). Ordinal/label encoding is preferred for tree-based models. Natural ordinal encoding for education. Label encoding for other nominals is acceptable."
+  }
+}

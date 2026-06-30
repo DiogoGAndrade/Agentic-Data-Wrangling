@@ -1,0 +1,14 @@
+{
+  "life_expectancy": {
+    "dataset_description": "WHO Life Expectancy dataset. Predicts life expectancy (regression). Contains country, status (Developed/Developing), and numeric health/economic indicators. Very few categorical columns — mainly 'Country' (high cardinality) and 'Status' (2 values).",
+    "downstream_model": "Ridge Regression (linear model)",
+    "must_do": [
+      "handle_missing",
+      "encode_categorical with one_hot for nominal columns"
+    ],
+    "must_not_do": [
+      "Do NOT use ordinal encoding on nominal categories"
+    ],
+    "notes": "Dataset domain: public health/economics. Categorical nature: Country is nominal high-cardinality, Status is binary. High-cardinality columns: Country (~193 unique values). ML model encoding guidance: One-hot encoding is ESSENTIAL for nominal categories. Ridge assumes linear relationships — ordinal encoding of nominal features creates false ordinal assumptions. Only use ordinal for truly ordered categories."
+  }
+}

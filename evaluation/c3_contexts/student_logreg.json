@@ -1,0 +1,14 @@
+{
+  "student": {
+    "dataset_description": "UCI Student Performance dataset (Open University). Predicts student final result (Pass/Fail/Distinction/Withdrawn). Contains demographic and behavioral columns. Many categorical columns with low cardinality. Student ID already removed.",
+    "downstream_model": "Logistic Regression (linear model)",
+    "must_do": [
+      "handle_missing",
+      "encode_categorical with one_hot for nominal columns"
+    ],
+    "must_not_do": [
+      "Do NOT use ordinal encoding on nominal categories"
+    ],
+    "notes": "Dataset domain: education. Categorical nature: mostly nominal with low cardinality (region, highest_education, disability). High-cardinality columns: code_module and code_presentation have moderate cardinality. ML model encoding guidance: One-hot encoding is ESSENTIAL for nominal categories. This model assumes linear relationships — ordinal encoding of nominal features creates false ordinal assumptions that degrade performance. Only use ordinal for truly ordered categories."
+  }
+}

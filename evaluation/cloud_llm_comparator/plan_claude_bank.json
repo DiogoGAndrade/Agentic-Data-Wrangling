@@ -1,0 +1,63 @@
+{
+  "actions": [
+    {
+      "action": "select_features",
+      "target_columns": ["duration"],
+      "params": {
+        "drop_columns": ["duration"]
+      }
+    },
+    {
+      "action": "clip_outliers",
+      "target_columns": ["age", "campaign", "previous"],
+      "params": {
+        "method": "iqr",
+        "iqr_k": 1.5
+      }
+    },
+    {
+      "action": "transform_numeric_skewed",
+      "target_columns": ["campaign", "previous", "euribor3m"],
+      "params": {
+        "skewness_threshold": 0.75,
+        "method": "log1p",
+        "model_family": "linear"
+      }
+    },
+    {
+      "action": "bin_numeric",
+      "target_columns": ["pdays"],
+      "params": {
+        "columns": ["pdays"],
+        "n_bins": 5
+      }
+    },
+    {
+      "action": "group_rare_categories",
+      "target_columns": ["job", "education"],
+      "params": {
+        "min_frequency_pct": 0.01,
+        "replacement_label": "Other"
+      }
+    },
+    {
+      "action": "encode_categorical_per_column",
+      "target_columns": ["job", "marital", "education", "default", "housing", "loan", "contact", "month", "day_of_week", "poutcome"],
+      "params": {
+        "column_encodings": {
+          "education": "ordinal",
+          "poutcome": "ordinal",
+          "default": "ordinal",
+          "housing": "ordinal",
+          "loan": "ordinal",
+          "contact": "one_hot",
+          "job": "one_hot",
+          "marital": "one_hot",
+          "month": "ordinal",
+          "day_of_week": "ordinal"
+        },
+        "default_method": "one_hot"
+      }
+    }
+  ]
+}

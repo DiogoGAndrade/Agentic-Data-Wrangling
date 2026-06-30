@@ -1,0 +1,12 @@
+{
+  "student": {
+    "dataset_description": "UCI Student Performance dataset (Open University). Predicts student final result (Pass/Fail/Distinction/Withdrawn). Contains demographic and behavioral columns. Many categorical columns with low cardinality. Student ID already removed.",
+    "downstream_model": "Gradient Boosting Machine (tree-based ensemble)",
+    "must_do": [
+      "handle_missing",
+      "encode_categorical with ordinal for tree-based efficiency"
+    ],
+    "must_not_do": [],
+    "notes": "Dataset domain: education. Categorical nature: mostly nominal with low cardinality (region, highest_education, disability). High-cardinality columns: code_module and code_presentation have moderate cardinality. ML model encoding guidance: Ordinal encoding is efficient and appropriate, same as Random Forest. GBM builds trees sequentially and benefits from compact feature representation. High-cardinality columns are better encoded as ordinal to avoid sparse feature matrices."
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "heart": {
+    "dataset_description": "UCI Heart Disease dataset (Cleveland). Classification: predicts presence of heart disease (binary). Small dataset (303 rows, 14 columns). All features are already numeric — some (cp, thal, restecg) are integer-encoded categoricals that may benefit from one-hot encoding for linear/distance models. Very low missing rate (0.1%).",
+    "downstream_model": "Logistic Regression (linear model)",
+    "column_semantics": {
+      "cp": "nominal — chest pain type (0-3), integer-encoded categorical",
+      "thal": "nominal — thalassemia (0-3), integer-encoded categorical",
+      "slope": "ordinal — ST slope (0 < 1 < 2)",
+      "restecg": "nominal — resting ECG (0-2), integer-encoded",
+      "fbs": "nominal — fasting blood sugar >120 (binary 0/1)",
+      "exang": "nominal — exercise-induced angina (binary 0/1)",
+      "sex": "nominal — sex (binary 0/1)",
+      "ca": "ordinal — number of major vessels colored by fluoroscopy (0-3)"
+    },
+    "redundant_features": [],
+    "must_do": [
+      "handle_missing",
+      "encode_categorical_per_column: ordinal for ordered columns, one_hot for nominal",
+      "clip_outliers to protect distance/linear sensitivity"
+    ],
+    "must_not_do": [],
+    "notes": "Linear/distance-based model (logreg): use one_hot for nominal categoricals to avoid false ordinal assumptions. Use ordinal ONLY for truly ordered columns. MUST clip outliers — linear and distance models are very sensitive to extreme values. Feature selection helps reduce multicollinearity."
+  }
+}

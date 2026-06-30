@@ -1,0 +1,184 @@
+{
+"actions": [
+{
+"action": "add_missing_indicators",
+"target_columns": [
+"max_glu_serum",
+"A1Cresult"
+],
+"params": {
+"min_na_rate": 0.05,
+"max_indicators": 10
+}
+},
+{
+"action": "handle_missing",
+"target_columns": [
+"max_glu_serum",
+"A1Cresult"
+],
+"params": {
+"strategy": "most_frequent"
+}
+},
+{
+"action": "group_rare_categories",
+"target_columns": [
+"race",
+"gender",
+"weight",
+"payer_code",
+"medical_specialty",
+"diag_1",
+"diag_2",
+"diag_3",
+"max_glu_serum",
+"A1Cresult",
+"metformin",
+"repaglinide",
+"nateglinide",
+"chlorpropamide",
+"glimepiride",
+"glipizide",
+"glyburide",
+"pioglitazone",
+"rosiglitazone",
+"acarbose",
+"miglitol",
+"tolazamide",
+"insulin",
+"glyburide-metformin"
+],
+"params": {
+"min_frequency_pct": 0.01,
+"replacement_label": "Other"
+}
+},
+{
+"action": "encode_categorical_per_column",
+"target_columns": [
+"race",
+"gender",
+"age",
+"weight",
+"admission_type_id",
+"discharge_disposition_id",
+"admission_source_id",
+"payer_code",
+"medical_specialty",
+"diag_1",
+"diag_2",
+"diag_3",
+"max_glu_serum",
+"A1Cresult",
+"metformin",
+"repaglinide",
+"nateglinide",
+"chlorpropamide",
+"glimepiride",
+"acetohexamide",
+"glipizide",
+"glyburide",
+"tolbutamide",
+"pioglitazone",
+"rosiglitazone",
+"acarbose",
+"miglitol",
+"troglitazone",
+"tolazamide",
+"insulin",
+"glyburide-metformin",
+"glipizide-metformin",
+"glimepiride-pioglitazone",
+"metformin-rosiglitazone",
+"metformin-pioglitazone",
+"change",
+"diabetesMed"
+],
+"params": {
+"column_encodings": {
+"race": "one_hot",
+"gender": "one_hot",
+"age": "ordinal",
+"weight": "ordinal",
+"admission_type_id": "one_hot",
+"discharge_disposition_id": "one_hot",
+"admission_source_id": "one_hot",
+"payer_code": "one_hot",
+"medical_specialty": "one_hot",
+"diag_1": "one_hot",
+"diag_2": "one_hot",
+"diag_3": "one_hot",
+"max_glu_serum": "ordinal",
+"A1Cresult": "ordinal",
+"metformin": "one_hot",
+"repaglinide": "one_hot",
+"nateglinide": "one_hot",
+"chlorpropamide": "one_hot",
+"glimepiride": "one_hot",
+"acetohexamide": "one_hot",
+"glipizide": "one_hot",
+"glyburide": "one_hot",
+"tolbutamide": "one_hot",
+"pioglitazone": "one_hot",
+"rosiglitazone": "one_hot",
+"acarbose": "one_hot",
+"miglitol": "one_hot",
+"troglitazone": "one_hot",
+"tolazamide": "one_hot",
+"insulin": "one_hot",
+"glyburide-metformin": "one_hot",
+"glipizide-metformin": "one_hot",
+"glimepiride-pioglitazone": "one_hot",
+"metformin-rosiglitazone": "one_hot",
+"metformin-pioglitazone": "one_hot",
+"change": "one_hot",
+"diabetesMed": "one_hot"
+},
+"default_method": "one_hot"
+}
+},
+{
+"action": "clip_outliers",
+"target_columns": [
+"num_lab_procedures",
+"num_medications",
+"number_outpatient",
+"number_emergency",
+"number_inpatient"
+],
+"params": {
+"method": "iqr",
+"iqr_k": 1.5
+}
+},
+{
+"action": "transform_numeric_skewed",
+"target_columns": [
+"number_outpatient",
+"number_emergency",
+"number_inpatient",
+"num_medications",
+"num_lab_procedures"
+],
+"params": {
+"skewness_threshold": 0.75,
+"method": "log1p",
+"model_family": "linear"
+}
+},
+{
+"action": "select_features",
+"target_columns": [
+"examide",
+"citoglipton"
+],
+"params": {
+"drop_columns": [
+"examide",
+"citoglipton"
+]
+}
+}
+]
+}

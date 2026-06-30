@@ -1,0 +1,252 @@
+{
+  "dataset": "life_expectancy",
+  "task_type": "regression",
+  "target_column": "life_expectancy",
+  "n_rows": 2928,
+  "n_cols": 22,
+  "schema": {
+    "Country": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 183,
+      "sample_values": [
+        "Afghanistan",
+        "Albania",
+        "Algeria",
+        "Angola",
+        "Antigua and Barbuda"
+      ]
+    },
+    "Year": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 16
+    },
+    "Status": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "Developing",
+        "Developed"
+      ]
+    },
+    "life_expectancy": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 362
+    },
+    "Adult Mortality": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 425
+    },
+    "infant deaths": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 209
+    },
+    "Alcohol": {
+      "dtype": "float64",
+      "missing_pct": 6.6,
+      "n_unique": 1076
+    },
+    "percentage expenditure": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 2323
+    },
+    "Hepatitis B": {
+      "dtype": "float64",
+      "missing_pct": 18.9,
+      "n_unique": 87
+    },
+    "Measles ": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 958
+    },
+    " BMI ": {
+      "dtype": "float64",
+      "missing_pct": 1.1,
+      "n_unique": 602
+    },
+    "under-five deaths ": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 252
+    },
+    "Polio": {
+      "dtype": "float64",
+      "missing_pct": 0.6,
+      "n_unique": 73
+    },
+    "Total expenditure": {
+      "dtype": "float64",
+      "missing_pct": 7.7,
+      "n_unique": 816
+    },
+    "Diphtheria ": {
+      "dtype": "float64",
+      "missing_pct": 0.6,
+      "n_unique": 81
+    },
+    " HIV/AIDS": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 200
+    },
+    "GDP": {
+      "dtype": "float64",
+      "missing_pct": 15.1,
+      "n_unique": 2485
+    },
+    "Population": {
+      "dtype": "float64",
+      "missing_pct": 22.0,
+      "n_unique": 2277
+    },
+    " thinness  1-19 years": {
+      "dtype": "float64",
+      "missing_pct": 1.1,
+      "n_unique": 200
+    },
+    " thinness 5-9 years": {
+      "dtype": "float64",
+      "missing_pct": 1.1,
+      "n_unique": 207
+    },
+    "Income composition of resources": {
+      "dtype": "float64",
+      "missing_pct": 5.5,
+      "n_unique": 625
+    },
+    "Schooling": {
+      "dtype": "float64",
+      "missing_pct": 5.5,
+      "n_unique": 173
+    }
+  },
+  "sample_rows": [
+    {
+      "Country": "Afghanistan",
+      "Year": 2015,
+      "Status": "Developing",
+      "life_expectancy": 65.0,
+      "Adult Mortality": 263.0,
+      "infant deaths": 62,
+      "Alcohol": 0.01,
+      "percentage expenditure": 71.27962362,
+      "Hepatitis B": 65.0,
+      "Measles ": 1154,
+      " BMI ": 19.1,
+      "under-five deaths ": 83,
+      "Polio": 6.0,
+      "Total expenditure": 8.16,
+      "Diphtheria ": 65.0,
+      " HIV/AIDS": 0.1,
+      "GDP": 584.25921,
+      "Population": 33736494.0,
+      " thinness  1-19 years": 17.2,
+      " thinness 5-9 years": 17.3,
+      "Income composition of resources": 0.479,
+      "Schooling": 10.1
+    },
+    {
+      "Country": "Afghanistan",
+      "Year": 2014,
+      "Status": "Developing",
+      "life_expectancy": 59.9,
+      "Adult Mortality": 271.0,
+      "infant deaths": 64,
+      "Alcohol": 0.01,
+      "percentage expenditure": 73.52358168,
+      "Hepatitis B": 62.0,
+      "Measles ": 492,
+      " BMI ": 18.6,
+      "under-five deaths ": 86,
+      "Polio": 58.0,
+      "Total expenditure": 8.18,
+      "Diphtheria ": 62.0,
+      " HIV/AIDS": 0.1,
+      "GDP": 612.696514,
+      "Population": 327582.0,
+      " thinness  1-19 years": 17.5,
+      " thinness 5-9 years": 17.5,
+      "Income composition of resources": 0.476,
+      "Schooling": 10.0
+    },
+    {
+      "Country": "Afghanistan",
+      "Year": 2013,
+      "Status": "Developing",
+      "life_expectancy": 59.9,
+      "Adult Mortality": 268.0,
+      "infant deaths": 66,
+      "Alcohol": 0.01,
+      "percentage expenditure": 73.21924272,
+      "Hepatitis B": 64.0,
+      "Measles ": 430,
+      " BMI ": 18.1,
+      "under-five deaths ": 89,
+      "Polio": 62.0,
+      "Total expenditure": 8.13,
+      "Diphtheria ": 64.0,
+      " HIV/AIDS": 0.1,
+      "GDP": 631.744976,
+      "Population": 31731688.0,
+      " thinness  1-19 years": 17.7,
+      " thinness 5-9 years": 17.7,
+      "Income composition of resources": 0.47,
+      "Schooling": 9.9
+    },
+    {
+      "Country": "Afghanistan",
+      "Year": 2012,
+      "Status": "Developing",
+      "life_expectancy": 59.5,
+      "Adult Mortality": 272.0,
+      "infant deaths": 69,
+      "Alcohol": 0.01,
+      "percentage expenditure": 78.1842153,
+      "Hepatitis B": 67.0,
+      "Measles ": 2787,
+      " BMI ": 17.6,
+      "under-five deaths ": 93,
+      "Polio": 67.0,
+      "Total expenditure": 8.52,
+      "Diphtheria ": 67.0,
+      " HIV/AIDS": 0.1,
+      "GDP": 669.959,
+      "Population": 3696958.0,
+      " thinness  1-19 years": 17.9,
+      " thinness 5-9 years": 18.0,
+      "Income composition of resources": 0.463,
+      "Schooling": 9.8
+    },
+    {
+      "Country": "Afghanistan",
+      "Year": 2011,
+      "Status": "Developing",
+      "life_expectancy": 59.2,
+      "Adult Mortality": 275.0,
+      "infant deaths": 71,
+      "Alcohol": 0.01,
+      "percentage expenditure": 7.097108703,
+      "Hepatitis B": 68.0,
+      "Measles ": 3013,
+      " BMI ": 17.2,
+      "under-five deaths ": 97,
+      "Polio": 68.0,
+      "Total expenditure": 7.87,
+      "Diphtheria ": 68.0,
+      " HIV/AIDS": 0.1,
+      "GDP": 63.537231,
+      "Population": 2978599.0,
+      " thinness  1-19 years": 18.2,
+      " thinness 5-9 years": 18.2,
+      "Income composition of resources": 0.454,
+      "Schooling": 9.5
+    }
+  ]
+}

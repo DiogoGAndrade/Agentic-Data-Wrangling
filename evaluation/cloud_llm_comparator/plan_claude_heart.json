@@ -1,0 +1,28 @@
+{
+  "actions": [
+    {
+      "action": "handle_missing",
+      "target_columns": ["ca", "thal"],
+      "params": {
+        "strategy": "median"
+      }
+    },
+    {
+      "action": "clip_outliers",
+      "target_columns": ["trestbps", "chol", "oldpeak"],
+      "params": {
+        "method": "iqr",
+        "iqr_k": 1.5
+      }
+    },
+    {
+      "action": "transform_numeric_skewed",
+      "target_columns": ["oldpeak", "chol"],
+      "params": {
+        "skewness_threshold": 0.75,
+        "method": "log1p",
+        "model_family": "linear"
+      }
+    }
+  ]
+}

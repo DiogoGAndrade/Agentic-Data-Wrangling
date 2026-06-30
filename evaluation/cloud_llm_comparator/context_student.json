@@ -1,0 +1,432 @@
+{
+  "dataset": "student",
+  "task_type": "classification",
+  "target_column": "final_result",
+  "n_rows": 649,
+  "n_cols": 33,
+  "schema": {
+    "school": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "GP",
+        "MS"
+      ]
+    },
+    "sex": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "F",
+        "M"
+      ]
+    },
+    "age": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 8
+    },
+    "address": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "U",
+        "R"
+      ]
+    },
+    "famsize": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "GT3",
+        "LE3"
+      ]
+    },
+    "Pstatus": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "T",
+        "A"
+      ]
+    },
+    "Medu": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 5
+    },
+    "Fedu": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 5
+    },
+    "Mjob": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 5,
+      "sample_values": [
+        "other",
+        "services",
+        "at_home",
+        "teacher",
+        "health"
+      ]
+    },
+    "Fjob": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 5,
+      "sample_values": [
+        "other",
+        "services",
+        "at_home",
+        "teacher",
+        "health"
+      ]
+    },
+    "reason": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "course",
+        "home",
+        "reputation",
+        "other"
+      ]
+    },
+    "guardian": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 3,
+      "sample_values": [
+        "mother",
+        "father",
+        "other"
+      ]
+    },
+    "traveltime": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 4
+    },
+    "studytime": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 4
+    },
+    "failures": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 4
+    },
+    "schoolsup": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "no",
+        "yes"
+      ]
+    },
+    "famsup": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "yes",
+        "no"
+      ]
+    },
+    "paid": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "no",
+        "yes"
+      ]
+    },
+    "activities": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "no",
+        "yes"
+      ]
+    },
+    "nursery": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "yes",
+        "no"
+      ]
+    },
+    "higher": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "yes",
+        "no"
+      ]
+    },
+    "internet": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "yes",
+        "no"
+      ]
+    },
+    "romantic": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "no",
+        "yes"
+      ]
+    },
+    "famrel": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 5
+    },
+    "freetime": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 5
+    },
+    "goout": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 5
+    },
+    "Dalc": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 5
+    },
+    "Walc": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 5
+    },
+    "health": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 5
+    },
+    "absences": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 24
+    },
+    "G1": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 17
+    },
+    "G2": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 16
+    },
+    "final_result": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "pass",
+        "fail"
+      ]
+    }
+  },
+  "sample_rows": [
+    {
+      "school": "GP",
+      "sex": "F",
+      "age": 18,
+      "address": "U",
+      "famsize": "GT3",
+      "Pstatus": "A",
+      "Medu": 4,
+      "Fedu": 4,
+      "Mjob": "at_home",
+      "Fjob": "teacher",
+      "reason": "course",
+      "guardian": "mother",
+      "traveltime": 2,
+      "studytime": 2,
+      "failures": 0,
+      "schoolsup": "yes",
+      "famsup": "no",
+      "paid": "no",
+      "activities": "no",
+      "nursery": "yes",
+      "higher": "yes",
+      "internet": "no",
+      "romantic": "no",
+      "famrel": 4,
+      "freetime": 3,
+      "goout": 4,
+      "Dalc": 1,
+      "Walc": 1,
+      "health": 3,
+      "absences": 4,
+      "G1": 0,
+      "G2": 11,
+      "final_result": "pass"
+    },
+    {
+      "school": "GP",
+      "sex": "F",
+      "age": 17,
+      "address": "U",
+      "famsize": "GT3",
+      "Pstatus": "T",
+      "Medu": 1,
+      "Fedu": 1,
+      "Mjob": "at_home",
+      "Fjob": "other",
+      "reason": "course",
+      "guardian": "father",
+      "traveltime": 1,
+      "studytime": 2,
+      "failures": 0,
+      "schoolsup": "no",
+      "famsup": "yes",
+      "paid": "no",
+      "activities": "no",
+      "nursery": "no",
+      "higher": "yes",
+      "internet": "yes",
+      "romantic": "no",
+      "famrel": 5,
+      "freetime": 3,
+      "goout": 3,
+      "Dalc": 1,
+      "Walc": 1,
+      "health": 3,
+      "absences": 2,
+      "G1": 9,
+      "G2": 11,
+      "final_result": "pass"
+    },
+    {
+      "school": "GP",
+      "sex": "F",
+      "age": 15,
+      "address": "U",
+      "famsize": "LE3",
+      "Pstatus": "T",
+      "Medu": 1,
+      "Fedu": 1,
+      "Mjob": "at_home",
+      "Fjob": "other",
+      "reason": "other",
+      "guardian": "mother",
+      "traveltime": 1,
+      "studytime": 2,
+      "failures": 0,
+      "schoolsup": "yes",
+      "famsup": "no",
+      "paid": "no",
+      "activities": "no",
+      "nursery": "yes",
+      "higher": "yes",
+      "internet": "yes",
+      "romantic": "no",
+      "famrel": 4,
+      "freetime": 3,
+      "goout": 2,
+      "Dalc": 2,
+      "Walc": 3,
+      "health": 3,
+      "absences": 6,
+      "G1": 12,
+      "G2": 13,
+      "final_result": "pass"
+    },
+    {
+      "school": "GP",
+      "sex": "F",
+      "age": 15,
+      "address": "U",
+      "famsize": "GT3",
+      "Pstatus": "T",
+      "Medu": 4,
+      "Fedu": 2,
+      "Mjob": "health",
+      "Fjob": "services",
+      "reason": "home",
+      "guardian": "mother",
+      "traveltime": 1,
+      "studytime": 3,
+      "failures": 0,
+      "schoolsup": "no",
+      "famsup": "yes",
+      "paid": "no",
+      "activities": "yes",
+      "nursery": "yes",
+      "higher": "yes",
+      "internet": "yes",
+      "romantic": "yes",
+      "famrel": 3,
+      "freetime": 2,
+      "goout": 2,
+      "Dalc": 1,
+      "Walc": 1,
+      "health": 5,
+      "absences": 0,
+      "G1": 14,
+      "G2": 14,
+      "final_result": "pass"
+    },
+    {
+      "school": "GP",
+      "sex": "F",
+      "age": 16,
+      "address": "U",
+      "famsize": "GT3",
+      "Pstatus": "T",
+      "Medu": 3,
+      "Fedu": 3,
+      "Mjob": "other",
+      "Fjob": "other",
+      "reason": "home",
+      "guardian": "father",
+      "traveltime": 1,
+      "studytime": 2,
+      "failures": 0,
+      "schoolsup": "no",
+      "famsup": "yes",
+      "paid": "no",
+      "activities": "no",
+      "nursery": "yes",
+      "higher": "yes",
+      "internet": "no",
+      "romantic": "no",
+      "famrel": 4,
+      "freetime": 3,
+      "goout": 2,
+      "Dalc": 1,
+      "Walc": 2,
+      "health": 5,
+      "absences": 0,
+      "G1": 11,
+      "G2": 13,
+      "final_result": "pass"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "life_expectancy": {
+    "dataset_description": "WHO Life Expectancy dataset. Regression task predicting life expectancy from health, economic, and demographic indicators across 183 countries. Country has very high cardinality (183 values). Status is binary ordinal.",
+    "downstream_model": "Ridge Regression (linear model)",
+    "column_semantics": {
+      "Country": "nominal — country name, high cardinality (183 unique)",
+      "Status": "ordinal — development status (Developing < Developed)"
+    },
+    "redundant_features": [],
+    "must_do": [
+      "handle_missing",
+      "encode_categorical_per_column: ordinal for ordered columns, one_hot for nominal",
+      "clip_outliers to protect distance/linear sensitivity"
+    ],
+    "must_not_do": [],
+    "notes": "Linear/distance-based model (ridge): use one_hot for nominal categoricals to avoid false ordinal assumptions. Use ordinal ONLY for truly ordered columns (e.g. education levels). MUST clip outliers — linear and distance models are very sensitive to extreme values. Feature selection helps reduce multicollinearity."
+  }
+}

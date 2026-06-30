@@ -1,0 +1,11 @@
+{
+  "heart": {
+    "dataset_description": "UCI Heart Disease dataset. Predicts presence of heart disease (binary). All features are numeric or integer-encoded categorical (cp=chest pain type 0-3, thal=thalassemia 0-3, slope=ST slope 0-2, restecg=resting ECG 0-2, fbs=fasting blood sugar binary, exang=exercise angina binary, sex=binary, ca=number of vessels 0-3). No string categorical columns \u2014 all already numeric. No ID columns.",
+    "downstream_model": "K-Nearest Neighbors (distance-based model)",
+    "must_do": [
+      "handle_missing"
+    ],
+    "must_not_do": [],
+    "notes": "Dataset domain: medical/cardiology. All features appear numeric \u2014 some (cp, thal, slope, restecg, ca) are actually categorical but integer-encoded. Scaling is critical for KNN. Integer-coded categories could benefit from one-hot encoding for distance computation fairness."
+  }
+}

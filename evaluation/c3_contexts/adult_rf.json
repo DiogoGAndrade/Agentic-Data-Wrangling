@@ -1,0 +1,12 @@
+{
+  "adult": {
+    "dataset_description": "UCI Census Income dataset. Predicts whether annual income exceeds $50K based on demographic features. Contains 8 nominal categorical columns (workclass, education, marital_status, occupation, relationship, race, sex, native_country) with no natural ordering except education (but education_num already encodes this). No true ID columns.",
+    "downstream_model": "Random Forest (tree-based ensemble)",
+    "must_do": [
+      "handle_missing",
+      "encode_categorical with ordinal for tree-based efficiency"
+    ],
+    "must_not_do": [],
+    "notes": "Dataset domain: demographics/census. Categorical nature: mostly nominal (no natural ordering). High-cardinality columns: native_country (41 values), occupation (14), education (16). ML model encoding guidance: Ordinal encoding is efficient and appropriate. Trees make binary splits at thresholds, so ordinal values work well regardless of whether categories have a natural order. This also reduces dimensionality compared to one-hot, which can improve performance with high-cardinality features."
+  }
+}
