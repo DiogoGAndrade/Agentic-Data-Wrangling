@@ -1,0 +1,254 @@
+You are an expert data scientist. I will give you a JSON file describing a tabular dataset.
+Your task is to generate a data cleaning plan that will maximize the downstream ML model performance.
+
+**Instructions:**
+1. Read the dataset schema carefully (dtypes, missing values, cardinality, sample values).
+2. Generate a JSON cleaning plan with key "actions" — a list of cleaning steps.
+3. Each action must have: "action" (string), "target_columns" (list), "params" (dict).
+4. Use ONLY these allowed actions (exact strings):
+
+  handle_missing          → params: {"strategy": "most_frequent"} or {"strategy": "median"}
+  encode_categorical_per_column → params: {"column_encodings": {"col": "ordinal" or "one_hot"}, "default_method": "one_hot"}
+  clip_outliers           → params: {"method": "iqr", "iqr_k": 1.5}
+  transform_numeric_skewed → params: {"skewness_threshold": 0.75, "method": "log1p", "model_family": "linear"}
+  add_missing_indicators  → params: {"min_na_rate": 0.05, "max_indicators": 10}
+  group_rare_categories   → params: {"min_frequency_pct": 0.01, "replacement_label": "Other"}
+  select_features         → params: {"drop_columns": ["col1", "col2"]}
+  bin_numeric             → params: {"columns": ["col"], "n_bins": 5}
+
+5. Downstream ML models: Logistic Regression, Random Forest, KNN, Gradient Boosting.
+6. For tree-based models (RF, GBM) ordinal encoding is preferred. For linear/distance (LogReg, KNN) one_hot is preferred. Apply the most appropriate encoding per column based on its semantics.
+7. Think about natural order (education levels, severity) → ordinal. Nominal categories (country, occupation) → context-dependent.
+8. Return ONLY valid JSON. No markdown, no explanation.
+
+---
+
+DATASET CONTEXT:
+{
+  "dataset": "adult",
+  "task_type": "classification",
+  "target_column": "income",
+  "n_rows": 48842,
+  "n_cols": 15,
+  "schema": {
+    "age": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 74
+    },
+    "workclass": {
+      "dtype": "object",
+      "missing_pct": 5.7,
+      "n_unique": 8,
+      "sample_values": [
+        "Private",
+        "Self-emp-not-inc",
+        "Local-gov",
+        "State-gov",
+        "Self-emp-inc"
+      ]
+    },
+    "fnlwgt": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 28523
+    },
+    "education": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 16,
+      "sample_values": [
+        "HS-grad",
+        "Some-college",
+        "Bachelors",
+        "Masters",
+        "Assoc-voc"
+      ]
+    },
+    "education_num": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 16
+    },
+    "marital_status": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 7,
+      "sample_values": [
+        "Married-civ-spouse",
+        "Never-married",
+        "Divorced",
+        "Separated",
+        "Widowed"
+      ]
+    },
+    "occupation": {
+      "dtype": "object",
+      "missing_pct": 5.8,
+      "n_unique": 14,
+      "sample_values": [
+        "Prof-specialty",
+        "Craft-repair",
+        "Exec-managerial",
+        "Adm-clerical",
+        "Sales"
+      ]
+    },
+    "relationship": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 6,
+      "sample_values": [
+        "Husband",
+        "Not-in-family",
+        "Own-child",
+        "Unmarried",
+        "Wife"
+      ]
+    },
+    "race": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 5,
+      "sample_values": [
+        "White",
+        "Black",
+        "Asian-Pac-Islander",
+        "Amer-Indian-Eskimo",
+        "Other"
+      ]
+    },
+    "sex": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "Male",
+        "Female"
+      ]
+    },
+    "capital_gain": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 123
+    },
+    "capital_loss": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 99
+    },
+    "hours_per_week": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 96
+    },
+    "native_country": {
+      "dtype": "object",
+      "missing_pct": 1.8,
+      "n_unique": 41,
+      "sample_values": [
+        "United-States",
+        "Mexico",
+        "Philippines",
+        "Germany",
+        "Puerto-Rico"
+      ]
+    },
+    "income": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "<=50K",
+        ">50K"
+      ]
+    }
+  },
+  "sample_rows": [
+    {
+      "age": 39,
+      "workclass": "State-gov",
+      "fnlwgt": 77516,
+      "education": "Bachelors",
+      "education_num": 13,
+      "marital_status": "Never-married",
+      "occupation": "Adm-clerical",
+      "relationship": "Not-in-family",
+      "race": "White",
+      "sex": "Male",
+      "capital_gain": 2174,
+      "capital_loss": 0,
+      "hours_per_week": 40,
+      "native_country": "United-States",
+      "income": "<=50K"
+    },
+    {
+      "age": 50,
+      "workclass": "Self-emp-not-inc",
+      "fnlwgt": 83311,
+      "education": "Bachelors",
+      "education_num": 13,
+      "marital_status": "Married-civ-spouse",
+      "occupation": "Exec-managerial",
+      "relationship": "Husband",
+      "race": "White",
+      "sex": "Male",
+      "capital_gain": 0,
+      "capital_loss": 0,
+      "hours_per_week": 13,
+      "native_country": "United-States",
+      "income": "<=50K"
+    },
+    {
+      "age": 38,
+      "workclass": "Private",
+      "fnlwgt": 215646,
+      "education": "HS-grad",
+      "education_num": 9,
+      "marital_status": "Divorced",
+      "occupation": "Handlers-cleaners",
+      "relationship": "Not-in-family",
+      "race": "White",
+      "sex": "Male",
+      "capital_gain": 0,
+      "capital_loss": 0,
+      "hours_per_week": 40,
+      "native_country": "United-States",
+      "income": "<=50K"
+    },
+    {
+      "age": 53,
+      "workclass": "Private",
+      "fnlwgt": 234721,
+      "education": "11th",
+      "education_num": 7,
+      "marital_status": "Married-civ-spouse",
+      "occupation": "Handlers-cleaners",
+      "relationship": "Husband",
+      "race": "Black",
+      "sex": "Male",
+      "capital_gain": 0,
+      "capital_loss": 0,
+      "hours_per_week": 40,
+      "native_country": "United-States",
+      "income": "<=50K"
+    },
+    {
+      "age": 28,
+      "workclass": "Private",
+      "fnlwgt": 338409,
+      "education": "Bachelors",
+      "education_num": 13,
+      "marital_status": "Married-civ-spouse",
+      "occupation": "Prof-specialty",
+      "relationship": "Wife",
+      "race": "Black",
+      "sex": "Female",
+      "capital_gain": 0,
+      "capital_loss": 0,
+      "hours_per_week": 40,
+      "native_country": "Cuba",
+      "income": "<=50K"
+    }
+  ]
+}

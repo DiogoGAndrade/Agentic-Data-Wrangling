@@ -1,0 +1,187 @@
+You are an expert data scientist. I will give you a JSON file describing a tabular dataset.
+Your task is to generate a data cleaning plan that will maximize the downstream ML model performance.
+
+**Instructions:**
+1. Read the dataset schema carefully (dtypes, missing values, cardinality, sample values).
+2. Generate a JSON cleaning plan with key "actions" — a list of cleaning steps.
+3. Each action must have: "action" (string), "target_columns" (list), "params" (dict).
+4. Use ONLY these allowed actions (exact strings):
+
+  handle_missing          → params: {"strategy": "most_frequent"} or {"strategy": "median"}
+  encode_categorical_per_column → params: {"column_encodings": {"col": "ordinal" or "one_hot"}, "default_method": "one_hot"}
+  clip_outliers           → params: {"method": "iqr", "iqr_k": 1.5}
+  transform_numeric_skewed → params: {"skewness_threshold": 0.75, "method": "log1p", "model_family": "linear"}
+  add_missing_indicators  → params: {"min_na_rate": 0.05, "max_indicators": 10}
+  group_rare_categories   → params: {"min_frequency_pct": 0.01, "replacement_label": "Other"}
+  select_features         → params: {"drop_columns": ["col1", "col2"]}
+  bin_numeric             → params: {"columns": ["col"], "n_bins": 5}
+
+5. Downstream ML models: Logistic Regression, Random Forest, KNN, Gradient Boosting.
+6. For tree-based models (RF, GBM) ordinal encoding is preferred. For linear/distance (LogReg, KNN) one_hot is preferred. Apply the most appropriate encoding per column based on its semantics.
+7. Think about natural order (education levels, severity) → ordinal. Nominal categories (country, occupation) → context-dependent.
+8. Return ONLY valid JSON. No markdown, no explanation.
+
+---
+
+DATASET CONTEXT:
+{
+  "dataset": "heart",
+  "task_type": "classification",
+  "target_column": "target",
+  "n_rows": 303,
+  "n_cols": 14,
+  "schema": {
+    "age": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 41
+    },
+    "sex": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 2
+    },
+    "cp": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 4
+    },
+    "trestbps": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 50
+    },
+    "chol": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 152
+    },
+    "fbs": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 2
+    },
+    "restecg": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 3
+    },
+    "thalach": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 91
+    },
+    "exang": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 2
+    },
+    "oldpeak": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 40
+    },
+    "slope": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 3
+    },
+    "ca": {
+      "dtype": "float64",
+      "missing_pct": 1.3,
+      "n_unique": 4
+    },
+    "thal": {
+      "dtype": "float64",
+      "missing_pct": 0.7,
+      "n_unique": 3
+    },
+    "target": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 2
+    }
+  },
+  "sample_rows": [
+    {
+      "age": 63.0,
+      "sex": 1.0,
+      "cp": 1.0,
+      "trestbps": 145.0,
+      "chol": 233.0,
+      "fbs": 1.0,
+      "restecg": 2.0,
+      "thalach": 150.0,
+      "exang": 0.0,
+      "oldpeak": 2.3,
+      "slope": 3.0,
+      "ca": 0.0,
+      "thal": 6.0,
+      "target": 0
+    },
+    {
+      "age": 67.0,
+      "sex": 1.0,
+      "cp": 4.0,
+      "trestbps": 160.0,
+      "chol": 286.0,
+      "fbs": 0.0,
+      "restecg": 2.0,
+      "thalach": 108.0,
+      "exang": 1.0,
+      "oldpeak": 1.5,
+      "slope": 2.0,
+      "ca": 3.0,
+      "thal": 3.0,
+      "target": 1
+    },
+    {
+      "age": 67.0,
+      "sex": 1.0,
+      "cp": 4.0,
+      "trestbps": 120.0,
+      "chol": 229.0,
+      "fbs": 0.0,
+      "restecg": 2.0,
+      "thalach": 129.0,
+      "exang": 1.0,
+      "oldpeak": 2.6,
+      "slope": 2.0,
+      "ca": 2.0,
+      "thal": 7.0,
+      "target": 1
+    },
+    {
+      "age": 37.0,
+      "sex": 1.0,
+      "cp": 3.0,
+      "trestbps": 130.0,
+      "chol": 250.0,
+      "fbs": 0.0,
+      "restecg": 0.0,
+      "thalach": 187.0,
+      "exang": 0.0,
+      "oldpeak": 3.5,
+      "slope": 3.0,
+      "ca": 0.0,
+      "thal": 3.0,
+      "target": 0
+    },
+    {
+      "age": 41.0,
+      "sex": 0.0,
+      "cp": 2.0,
+      "trestbps": 130.0,
+      "chol": 204.0,
+      "fbs": 0.0,
+      "restecg": 2.0,
+      "thalach": 172.0,
+      "exang": 0.0,
+      "oldpeak": 1.4,
+      "slope": 1.0,
+      "ca": 0.0,
+      "thal": 3.0,
+      "target": 0
+    }
+  ]
+}

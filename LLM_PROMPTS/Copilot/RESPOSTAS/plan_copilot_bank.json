@@ -1,0 +1,70 @@
+{
+  "actions": [
+    {
+      "action": "clip_outliers",
+      "target_columns": [
+        "age",
+        "duration",
+        "campaign",
+        "pdays",
+        "previous",
+        "emp.var.rate",
+        "cons.price.idx",
+        "cons.conf.idx",
+        "euribor3m",
+        "nr.employed"
+      ],
+      "params": {"method": "iqr", "iqr_k": 1.5}
+    },
+    {
+      "action": "transform_numeric_skewed",
+      "target_columns": [
+        "duration",
+        "campaign",
+        "pdays",
+        "previous",
+        "euribor3m"
+      ],
+      "params": {"skewness_threshold": 0.75, "method": "log1p", "model_family": "linear"}
+    },
+    {
+      "action": "group_rare_categories",
+      "target_columns": [
+        "job",
+        "marital",
+        "education",
+        "default",
+        "housing",
+        "loan",
+        "contact",
+        "month",
+        "day_of_week",
+        "poutcome"
+      ],
+      "params": {"min_frequency_pct": 0.01, "replacement_label": "Other"}
+    },
+    {
+      "action": "encode_categorical_per_column",
+      "target_columns": [
+        "job",
+        "marital",
+        "education",
+        "default",
+        "housing",
+        "loan",
+        "contact",
+        "month",
+        "day_of_week",
+        "poutcome"
+      ],
+      "params": {
+        "column_encodings": {
+          "education": "ordinal",
+          "marital": "ordinal",
+          "poutcome": "ordinal"
+        },
+        "default_method": "one_hot"
+      }
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+"actions": [
+{
+"action": "encode_categorical_per_column",
+"target_columns": [
+"job",
+"marital",
+"education",
+"default",
+"housing",
+"loan",
+"contact",
+"month",
+"day_of_week",
+"poutcome"
+],
+"params": {
+"column_encodings": {
+"job": "one_hot",
+"marital": "one_hot",
+"education": "ordinal",
+"default": "one_hot",
+"housing": "one_hot",
+"loan": "one_hot",
+"contact": "one_hot",
+"month": "ordinal",
+"day_of_week": "ordinal",
+"poutcome": "one_hot"
+},
+"default_method": "one_hot"
+}
+},
+{
+"action": "group_rare_categories",
+"target_columns": [
+"job",
+"marital",
+"education"
+],
+"params": {
+"min_frequency_pct": 0.01,
+"replacement_label": "Other"
+}
+},
+{
+"action": "clip_outliers",
+"target_columns": [
+"age",
+"duration",
+"campaign"
+],
+"params": {
+"method": "iqr",
+"iqr_k": 1.5
+}
+},
+{
+"action": "transform_numeric_skewed",
+"target_columns": [
+"duration",
+"campaign",
+"pdays",
+"previous"
+],
+"params": {
+"skewness_threshold": 0.75,
+"method": "log1p",
+"model_family": "linear"
+}
+},
+{
+"action": "bin_numeric",
+"target_columns": [
+"age",
+"campaign",
+"pdays",
+"previous"
+],
+"params": {
+"columns": [
+"age",
+"campaign",
+"pdays",
+"previous"
+],
+"n_bins": 5
+}
+}
+]
+}

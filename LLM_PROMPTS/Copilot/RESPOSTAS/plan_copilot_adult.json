@@ -1,0 +1,56 @@
+{
+  "actions": [
+    {
+      "action": "handle_missing",
+      "target_columns": ["workclass", "occupation", "native_country"],
+      "params": {"strategy": "most_frequent"}
+    },
+    {
+      "action": "add_missing_indicators",
+      "target_columns": ["workclass", "occupation", "native_country"],
+      "params": {"min_na_rate": 0.05, "max_indicators": 10}
+    },
+    {
+      "action": "group_rare_categories",
+      "target_columns": ["native_country", "occupation", "workclass"],
+      "params": {"min_frequency_pct": 0.01, "replacement_label": "Other"}
+    },
+    {
+      "action": "clip_outliers",
+      "target_columns": ["age", "fnlwgt", "capital_gain", "capital_loss", "hours_per_week"],
+      "params": {"method": "iqr", "iqr_k": 1.5}
+    },
+    {
+      "action": "transform_numeric_skewed",
+      "target_columns": ["fnlwgt", "capital_gain", "capital_loss"],
+      "params": {"skewness_threshold": 0.75, "method": "log1p", "model_family": "linear"}
+    },
+    {
+      "action": "encode_categorical_per_column",
+      "target_columns": [
+        "workclass",
+        "education",
+        "marital_status",
+        "occupation",
+        "relationship",
+        "race",
+        "sex",
+        "native_country"
+      ],
+      "params": {
+        "column_encodings": {
+          "education": "ordinal",
+          "marital_status": "ordinal",
+          "relationship": "ordinal",
+          "sex": "ordinal"
+        },
+        "default_method": "one_hot"
+      }
+    },
+    {
+      "action": "select_features",
+      "target_columns": [],
+      "params": {"drop_columns": ["education_num"]}
+    }
+  ]
+}

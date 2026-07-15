@@ -1,0 +1,728 @@
+You are an expert data scientist. I will give you a JSON file describing a tabular dataset.
+Your task is to generate a data cleaning plan that will maximize the downstream ML model performance.
+
+**Instructions:**
+1. Read the dataset schema carefully (dtypes, missing values, cardinality, sample values).
+2. Generate a JSON cleaning plan with key "actions" — a list of cleaning steps.
+3. Each action must have: "action" (string), "target_columns" (list), "params" (dict).
+4. Use ONLY these allowed actions (exact strings):
+
+  handle_missing          → params: {"strategy": "most_frequent"} or {"strategy": "median"}
+  encode_categorical_per_column → params: {"column_encodings": {"col": "ordinal" or "one_hot"}, "default_method": "one_hot"}
+  clip_outliers           → params: {"method": "iqr", "iqr_k": 1.5}
+  transform_numeric_skewed → params: {"skewness_threshold": 0.75, "method": "log1p", "model_family": "linear"}
+  add_missing_indicators  → params: {"min_na_rate": 0.05, "max_indicators": 10}
+  group_rare_categories   → params: {"min_frequency_pct": 0.01, "replacement_label": "Other"}
+  select_features         → params: {"drop_columns": ["col1", "col2"]}
+  bin_numeric             → params: {"columns": ["col"], "n_bins": 5}
+
+5. Downstream ML models: Logistic Regression, Random Forest, KNN, Gradient Boosting.
+6. For tree-based models (RF, GBM) ordinal encoding is preferred. For linear/distance (LogReg, KNN) one_hot is preferred. Apply the most appropriate encoding per column based on its semantics.
+7. Think about natural order (education levels, severity) → ordinal. Nominal categories (country, occupation) → context-dependent.
+8. Return ONLY valid JSON. No markdown, no explanation.
+
+---
+
+DATASET CONTEXT:
+{
+  "dataset": "diabetes",
+  "task_type": "classification",
+  "target_column": "readmitted",
+  "n_rows": 101766,
+  "n_cols": 48,
+  "schema": {
+    "race": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 6,
+      "sample_values": [
+        "Caucasian",
+        "AfricanAmerican",
+        "?",
+        "Hispanic",
+        "Other"
+      ]
+    },
+    "gender": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 3,
+      "sample_values": [
+        "Female",
+        "Male",
+        "Unknown/Invalid"
+      ]
+    },
+    "age": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 10,
+      "sample_values": [
+        "[70-80)",
+        "[60-70)",
+        "[50-60)",
+        "[80-90)",
+        "[40-50)"
+      ]
+    },
+    "weight": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 10,
+      "sample_values": [
+        "?",
+        "[75-100)",
+        "[50-75)",
+        "[100-125)",
+        "[125-150)"
+      ]
+    },
+    "admission_type_id": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 8
+    },
+    "discharge_disposition_id": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 26
+    },
+    "admission_source_id": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 17
+    },
+    "time_in_hospital": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 14
+    },
+    "payer_code": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 18,
+      "sample_values": [
+        "?",
+        "MC",
+        "HM",
+        "SP",
+        "BC"
+      ]
+    },
+    "medical_specialty": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 73,
+      "sample_values": [
+        "?",
+        "InternalMedicine",
+        "Emergency/Trauma",
+        "Family/GeneralPractice",
+        "Cardiology"
+      ]
+    },
+    "num_lab_procedures": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 118
+    },
+    "num_procedures": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 7
+    },
+    "num_medications": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 75
+    },
+    "number_outpatient": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 39
+    },
+    "number_emergency": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 33
+    },
+    "number_inpatient": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 21
+    },
+    "diag_1": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 717,
+      "sample_values": [
+        "428",
+        "414",
+        "786",
+        "410",
+        "486"
+      ]
+    },
+    "diag_2": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 749,
+      "sample_values": [
+        "276",
+        "428",
+        "250",
+        "427",
+        "401"
+      ]
+    },
+    "diag_3": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 790,
+      "sample_values": [
+        "250",
+        "401",
+        "276",
+        "428",
+        "427"
+      ]
+    },
+    "number_diagnoses": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 16
+    },
+    "max_glu_serum": {
+      "dtype": "object",
+      "missing_pct": 94.7,
+      "n_unique": 3,
+      "sample_values": [
+        "Norm",
+        ">200",
+        ">300"
+      ]
+    },
+    "A1Cresult": {
+      "dtype": "object",
+      "missing_pct": 83.3,
+      "n_unique": 3,
+      "sample_values": [
+        ">8",
+        "Norm",
+        ">7"
+      ]
+    },
+    "metformin": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "No",
+        "Steady",
+        "Up",
+        "Down"
+      ]
+    },
+    "repaglinide": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "No",
+        "Steady",
+        "Up",
+        "Down"
+      ]
+    },
+    "nateglinide": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "No",
+        "Steady",
+        "Up",
+        "Down"
+      ]
+    },
+    "chlorpropamide": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "No",
+        "Steady",
+        "Up",
+        "Down"
+      ]
+    },
+    "glimepiride": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "No",
+        "Steady",
+        "Up",
+        "Down"
+      ]
+    },
+    "acetohexamide": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "No",
+        "Steady"
+      ]
+    },
+    "glipizide": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "No",
+        "Steady",
+        "Up",
+        "Down"
+      ]
+    },
+    "glyburide": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "No",
+        "Steady",
+        "Up",
+        "Down"
+      ]
+    },
+    "tolbutamide": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "No",
+        "Steady"
+      ]
+    },
+    "pioglitazone": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "No",
+        "Steady",
+        "Up",
+        "Down"
+      ]
+    },
+    "rosiglitazone": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "No",
+        "Steady",
+        "Up",
+        "Down"
+      ]
+    },
+    "acarbose": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "No",
+        "Steady",
+        "Up",
+        "Down"
+      ]
+    },
+    "miglitol": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "No",
+        "Steady",
+        "Down",
+        "Up"
+      ]
+    },
+    "troglitazone": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "No",
+        "Steady"
+      ]
+    },
+    "tolazamide": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 3,
+      "sample_values": [
+        "No",
+        "Steady",
+        "Up"
+      ]
+    },
+    "examide": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 1,
+      "sample_values": [
+        "No"
+      ]
+    },
+    "citoglipton": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 1,
+      "sample_values": [
+        "No"
+      ]
+    },
+    "insulin": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "No",
+        "Steady",
+        "Down",
+        "Up"
+      ]
+    },
+    "glyburide-metformin": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "No",
+        "Steady",
+        "Up",
+        "Down"
+      ]
+    },
+    "glipizide-metformin": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "No",
+        "Steady"
+      ]
+    },
+    "glimepiride-pioglitazone": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "No",
+        "Steady"
+      ]
+    },
+    "metformin-rosiglitazone": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "No",
+        "Steady"
+      ]
+    },
+    "metformin-pioglitazone": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "No",
+        "Steady"
+      ]
+    },
+    "change": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "No",
+        "Ch"
+      ]
+    },
+    "diabetesMed": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "Yes",
+        "No"
+      ]
+    },
+    "readmitted": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 3,
+      "sample_values": [
+        "NO",
+        ">30",
+        "<30"
+      ]
+    }
+  },
+  "sample_rows": [
+    {
+      "race": "Caucasian",
+      "gender": "Female",
+      "age": "[0-10)",
+      "weight": "?",
+      "admission_type_id": 6,
+      "discharge_disposition_id": 25,
+      "admission_source_id": 1,
+      "time_in_hospital": 1,
+      "payer_code": "?",
+      "medical_specialty": "Pediatrics-Endocrinology",
+      "num_lab_procedures": 41,
+      "num_procedures": 0,
+      "num_medications": 1,
+      "number_outpatient": 0,
+      "number_emergency": 0,
+      "number_inpatient": 0,
+      "diag_1": "250.83",
+      "diag_2": "?",
+      "diag_3": "?",
+      "number_diagnoses": 1,
+      "max_glu_serum": null,
+      "A1Cresult": null,
+      "metformin": "No",
+      "repaglinide": "No",
+      "nateglinide": "No",
+      "chlorpropamide": "No",
+      "glimepiride": "No",
+      "acetohexamide": "No",
+      "glipizide": "No",
+      "glyburide": "No",
+      "tolbutamide": "No",
+      "pioglitazone": "No",
+      "rosiglitazone": "No",
+      "acarbose": "No",
+      "miglitol": "No",
+      "troglitazone": "No",
+      "tolazamide": "No",
+      "examide": "No",
+      "citoglipton": "No",
+      "insulin": "No",
+      "glyburide-metformin": "No",
+      "glipizide-metformin": "No",
+      "glimepiride-pioglitazone": "No",
+      "metformin-rosiglitazone": "No",
+      "metformin-pioglitazone": "No",
+      "change": "No",
+      "diabetesMed": "No",
+      "readmitted": "NO"
+    },
+    {
+      "race": "Caucasian",
+      "gender": "Female",
+      "age": "[10-20)",
+      "weight": "?",
+      "admission_type_id": 1,
+      "discharge_disposition_id": 1,
+      "admission_source_id": 7,
+      "time_in_hospital": 3,
+      "payer_code": "?",
+      "medical_specialty": "?",
+      "num_lab_procedures": 59,
+      "num_procedures": 0,
+      "num_medications": 18,
+      "number_outpatient": 0,
+      "number_emergency": 0,
+      "number_inpatient": 0,
+      "diag_1": "276",
+      "diag_2": "250.01",
+      "diag_3": "255",
+      "number_diagnoses": 9,
+      "max_glu_serum": null,
+      "A1Cresult": null,
+      "metformin": "No",
+      "repaglinide": "No",
+      "nateglinide": "No",
+      "chlorpropamide": "No",
+      "glimepiride": "No",
+      "acetohexamide": "No",
+      "glipizide": "No",
+      "glyburide": "No",
+      "tolbutamide": "No",
+      "pioglitazone": "No",
+      "rosiglitazone": "No",
+      "acarbose": "No",
+      "miglitol": "No",
+      "troglitazone": "No",
+      "tolazamide": "No",
+      "examide": "No",
+      "citoglipton": "No",
+      "insulin": "Up",
+      "glyburide-metformin": "No",
+      "glipizide-metformin": "No",
+      "glimepiride-pioglitazone": "No",
+      "metformin-rosiglitazone": "No",
+      "metformin-pioglitazone": "No",
+      "change": "Ch",
+      "diabetesMed": "Yes",
+      "readmitted": ">30"
+    },
+    {
+      "race": "AfricanAmerican",
+      "gender": "Female",
+      "age": "[20-30)",
+      "weight": "?",
+      "admission_type_id": 1,
+      "discharge_disposition_id": 1,
+      "admission_source_id": 7,
+      "time_in_hospital": 2,
+      "payer_code": "?",
+      "medical_specialty": "?",
+      "num_lab_procedures": 11,
+      "num_procedures": 5,
+      "num_medications": 13,
+      "number_outpatient": 2,
+      "number_emergency": 0,
+      "number_inpatient": 1,
+      "diag_1": "648",
+      "diag_2": "250",
+      "diag_3": "V27",
+      "number_diagnoses": 6,
+      "max_glu_serum": null,
+      "A1Cresult": null,
+      "metformin": "No",
+      "repaglinide": "No",
+      "nateglinide": "No",
+      "chlorpropamide": "No",
+      "glimepiride": "No",
+      "acetohexamide": "No",
+      "glipizide": "Steady",
+      "glyburide": "No",
+      "tolbutamide": "No",
+      "pioglitazone": "No",
+      "rosiglitazone": "No",
+      "acarbose": "No",
+      "miglitol": "No",
+      "troglitazone": "No",
+      "tolazamide": "No",
+      "examide": "No",
+      "citoglipton": "No",
+      "insulin": "No",
+      "glyburide-metformin": "No",
+      "glipizide-metformin": "No",
+      "glimepiride-pioglitazone": "No",
+      "metformin-rosiglitazone": "No",
+      "metformin-pioglitazone": "No",
+      "change": "No",
+      "diabetesMed": "Yes",
+      "readmitted": "NO"
+    },
+    {
+      "race": "Caucasian",
+      "gender": "Male",
+      "age": "[30-40)",
+      "weight": "?",
+      "admission_type_id": 1,
+      "discharge_disposition_id": 1,
+      "admission_source_id": 7,
+      "time_in_hospital": 2,
+      "payer_code": "?",
+      "medical_specialty": "?",
+      "num_lab_procedures": 44,
+      "num_procedures": 1,
+      "num_medications": 16,
+      "number_outpatient": 0,
+      "number_emergency": 0,
+      "number_inpatient": 0,
+      "diag_1": "8",
+      "diag_2": "250.43",
+      "diag_3": "403",
+      "number_diagnoses": 7,
+      "max_glu_serum": null,
+      "A1Cresult": null,
+      "metformin": "No",
+      "repaglinide": "No",
+      "nateglinide": "No",
+      "chlorpropamide": "No",
+      "glimepiride": "No",
+      "acetohexamide": "No",
+      "glipizide": "No",
+      "glyburide": "No",
+      "tolbutamide": "No",
+      "pioglitazone": "No",
+      "rosiglitazone": "No",
+      "acarbose": "No",
+      "miglitol": "No",
+      "troglitazone": "No",
+      "tolazamide": "No",
+      "examide": "No",
+      "citoglipton": "No",
+      "insulin": "Up",
+      "glyburide-metformin": "No",
+      "glipizide-metformin": "No",
+      "glimepiride-pioglitazone": "No",
+      "metformin-rosiglitazone": "No",
+      "metformin-pioglitazone": "No",
+      "change": "Ch",
+      "diabetesMed": "Yes",
+      "readmitted": "NO"
+    },
+    {
+      "race": "Caucasian",
+      "gender": "Male",
+      "age": "[40-50)",
+      "weight": "?",
+      "admission_type_id": 1,
+      "discharge_disposition_id": 1,
+      "admission_source_id": 7,
+      "time_in_hospital": 1,
+      "payer_code": "?",
+      "medical_specialty": "?",
+      "num_lab_procedures": 51,
+      "num_procedures": 0,
+      "num_medications": 8,
+      "number_outpatient": 0,
+      "number_emergency": 0,
+      "number_inpatient": 0,
+      "diag_1": "197",
+      "diag_2": "157",
+      "diag_3": "250",
+      "number_diagnoses": 5,
+      "max_glu_serum": null,
+      "A1Cresult": null,
+      "metformin": "No",
+      "repaglinide": "No",
+      "nateglinide": "No",
+      "chlorpropamide": "No",
+      "glimepiride": "No",
+      "acetohexamide": "No",
+      "glipizide": "Steady",
+      "glyburide": "No",
+      "tolbutamide": "No",
+      "pioglitazone": "No",
+      "rosiglitazone": "No",
+      "acarbose": "No",
+      "miglitol": "No",
+      "troglitazone": "No",
+      "tolazamide": "No",
+      "examide": "No",
+      "citoglipton": "No",
+      "insulin": "Steady",
+      "glyburide-metformin": "No",
+      "glipizide-metformin": "No",
+      "glimepiride-pioglitazone": "No",
+      "metformin-rosiglitazone": "No",
+      "metformin-pioglitazone": "No",
+      "change": "Ch",
+      "diabetesMed": "Yes",
+      "readmitted": "NO"
+    }
+  ]
+}

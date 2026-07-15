@@ -1,0 +1,63 @@
+{
+"actions": [
+{
+"action": "handle_missing",
+"target_columns": [
+"ca",
+"thal"
+],
+"params": {
+"strategy": "most_frequent"
+}
+},
+{
+"action": "encode_categorical_per_column",
+"target_columns": [
+"sex",
+"cp",
+"fbs",
+"restecg",
+"exang",
+"slope",
+"ca",
+"thal"
+],
+"params": {
+"column_encodings": {
+"sex": "one_hot",
+"cp": "one_hot",
+"fbs": "one_hot",
+"restecg": "one_hot",
+"exang": "one_hot",
+"slope": "ordinal",
+"ca": "ordinal",
+"thal": "one_hot"
+},
+"default_method": "one_hot"
+}
+},
+{
+"action": "clip_outliers",
+"target_columns": [
+"trestbps",
+"chol",
+"oldpeak"
+],
+"params": {
+"method": "iqr",
+"iqr_k": 1.5
+}
+},
+{
+"action": "transform_numeric_skewed",
+"target_columns": [
+"oldpeak"
+],
+"params": {
+"skewness_threshold": 0.75,
+"method": "log1p",
+"model_family": "linear"
+}
+}
+]
+}

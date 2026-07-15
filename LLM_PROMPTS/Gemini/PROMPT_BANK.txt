@@ -1,0 +1,319 @@
+You are an expert data scientist. I will give you a JSON file describing a tabular dataset.
+Your task is to generate a data cleaning plan that will maximize the downstream ML model performance.
+
+**Instructions:**
+1. Read the dataset schema carefully (dtypes, missing values, cardinality, sample values).
+2. Generate a JSON cleaning plan with key "actions" — a list of cleaning steps.
+3. Each action must have: "action" (string), "target_columns" (list), "params" (dict).
+4. Use ONLY these allowed actions (exact strings):
+
+  handle_missing          → params: {"strategy": "most_frequent"} or {"strategy": "median"}
+  encode_categorical_per_column → params: {"column_encodings": {"col": "ordinal" or "one_hot"}, "default_method": "one_hot"}
+  clip_outliers           → params: {"method": "iqr", "iqr_k": 1.5}
+  transform_numeric_skewed → params: {"skewness_threshold": 0.75, "method": "log1p", "model_family": "linear"}
+  add_missing_indicators  → params: {"min_na_rate": 0.05, "max_indicators": 10}
+  group_rare_categories   → params: {"min_frequency_pct": 0.01, "replacement_label": "Other"}
+  select_features         → params: {"drop_columns": ["col1", "col2"]}
+  bin_numeric             → params: {"columns": ["col"], "n_bins": 5}
+
+5. Downstream ML models: Logistic Regression, Random Forest, KNN, Gradient Boosting.
+6. For tree-based models (RF, GBM) ordinal encoding is preferred. For linear/distance (LogReg, KNN) one_hot is preferred. Apply the most appropriate encoding per column based on its semantics.
+7. Think about natural order (education levels, severity) → ordinal. Nominal categories (country, occupation) → context-dependent.
+8. Return ONLY valid JSON. No markdown, no explanation.
+
+---
+
+DATASET CONTEXT:
+{
+  "dataset": "bank",
+  "task_type": "classification",
+  "target_column": "y",
+  "n_rows": 41188,
+  "n_cols": 21,
+  "schema": {
+    "age": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 78
+    },
+    "job": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 12,
+      "sample_values": [
+        "admin.",
+        "blue-collar",
+        "technician",
+        "services",
+        "management"
+      ]
+    },
+    "marital": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 4,
+      "sample_values": [
+        "married",
+        "single",
+        "divorced",
+        "unknown"
+      ]
+    },
+    "education": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 8,
+      "sample_values": [
+        "university.degree",
+        "high.school",
+        "basic.9y",
+        "professional.course",
+        "basic.4y"
+      ]
+    },
+    "default": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 3,
+      "sample_values": [
+        "no",
+        "unknown",
+        "yes"
+      ]
+    },
+    "housing": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 3,
+      "sample_values": [
+        "yes",
+        "no",
+        "unknown"
+      ]
+    },
+    "loan": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 3,
+      "sample_values": [
+        "no",
+        "yes",
+        "unknown"
+      ]
+    },
+    "contact": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "cellular",
+        "telephone"
+      ]
+    },
+    "month": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 10,
+      "sample_values": [
+        "may",
+        "jul",
+        "aug",
+        "jun",
+        "nov"
+      ]
+    },
+    "day_of_week": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 5,
+      "sample_values": [
+        "thu",
+        "mon",
+        "wed",
+        "tue",
+        "fri"
+      ]
+    },
+    "duration": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 1544
+    },
+    "campaign": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 42
+    },
+    "pdays": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 27
+    },
+    "previous": {
+      "dtype": "int64",
+      "missing_pct": 0.0,
+      "n_unique": 8
+    },
+    "poutcome": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 3,
+      "sample_values": [
+        "nonexistent",
+        "failure",
+        "success"
+      ]
+    },
+    "emp.var.rate": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 10
+    },
+    "cons.price.idx": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 26
+    },
+    "cons.conf.idx": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 26
+    },
+    "euribor3m": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 316
+    },
+    "nr.employed": {
+      "dtype": "float64",
+      "missing_pct": 0.0,
+      "n_unique": 11
+    },
+    "y": {
+      "dtype": "object",
+      "missing_pct": 0.0,
+      "n_unique": 2,
+      "sample_values": [
+        "no",
+        "yes"
+      ]
+    }
+  },
+  "sample_rows": [
+    {
+      "age": 56,
+      "job": "housemaid",
+      "marital": "married",
+      "education": "basic.4y",
+      "default": "no",
+      "housing": "no",
+      "loan": "no",
+      "contact": "telephone",
+      "month": "may",
+      "day_of_week": "mon",
+      "duration": 261,
+      "campaign": 1,
+      "pdays": 999,
+      "previous": 0,
+      "poutcome": "nonexistent",
+      "emp.var.rate": 1.1,
+      "cons.price.idx": 93.994,
+      "cons.conf.idx": -36.4,
+      "euribor3m": 4.857,
+      "nr.employed": 5191.0,
+      "y": "no"
+    },
+    {
+      "age": 57,
+      "job": "services",
+      "marital": "married",
+      "education": "high.school",
+      "default": "unknown",
+      "housing": "no",
+      "loan": "no",
+      "contact": "telephone",
+      "month": "may",
+      "day_of_week": "mon",
+      "duration": 149,
+      "campaign": 1,
+      "pdays": 999,
+      "previous": 0,
+      "poutcome": "nonexistent",
+      "emp.var.rate": 1.1,
+      "cons.price.idx": 93.994,
+      "cons.conf.idx": -36.4,
+      "euribor3m": 4.857,
+      "nr.employed": 5191.0,
+      "y": "no"
+    },
+    {
+      "age": 37,
+      "job": "services",
+      "marital": "married",
+      "education": "high.school",
+      "default": "no",
+      "housing": "yes",
+      "loan": "no",
+      "contact": "telephone",
+      "month": "may",
+      "day_of_week": "mon",
+      "duration": 226,
+      "campaign": 1,
+      "pdays": 999,
+      "previous": 0,
+      "poutcome": "nonexistent",
+      "emp.var.rate": 1.1,
+      "cons.price.idx": 93.994,
+      "cons.conf.idx": -36.4,
+      "euribor3m": 4.857,
+      "nr.employed": 5191.0,
+      "y": "no"
+    },
+    {
+      "age": 40,
+      "job": "admin.",
+      "marital": "married",
+      "education": "basic.6y",
+      "default": "no",
+      "housing": "no",
+      "loan": "no",
+      "contact": "telephone",
+      "month": "may",
+      "day_of_week": "mon",
+      "duration": 151,
+      "campaign": 1,
+      "pdays": 999,
+      "previous": 0,
+      "poutcome": "nonexistent",
+      "emp.var.rate": 1.1,
+      "cons.price.idx": 93.994,
+      "cons.conf.idx": -36.4,
+      "euribor3m": 4.857,
+      "nr.employed": 5191.0,
+      "y": "no"
+    },
+    {
+      "age": 56,
+      "job": "services",
+      "marital": "married",
+      "education": "high.school",
+      "default": "no",
+      "housing": "no",
+      "loan": "yes",
+      "contact": "telephone",
+      "month": "may",
+      "day_of_week": "mon",
+      "duration": 307,
+      "campaign": 1,
+      "pdays": 999,
+      "previous": 0,
+      "poutcome": "nonexistent",
+      "emp.var.rate": 1.1,
+      "cons.price.idx": 93.994,
+      "cons.conf.idx": -36.4,
+      "euribor3m": 4.857,
+      "nr.employed": 5191.0,
+      "y": "no"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+"actions": [
+{
+"action": "select_features",
+"target_columns": [
+"education",
+"fnlwgt"
+],
+"params": {
+"drop_columns": [
+"education",
+"fnlwgt"
+]
+}
+},
+{
+"action": "add_missing_indicators",
+"target_columns": [
+"workclass",
+"occupation"
+],
+"params": {
+"min_na_rate": 0.05,
+"max_indicators": 10
+}
+},
+{
+"action": "handle_missing",
+"target_columns": [
+"workclass",
+"occupation",
+"native_country"
+],
+"params": {
+"strategy": "most_frequent"
+}
+},
+{
+"action": "group_rare_categories",
+"target_columns": [
+"native_country",
+"workclass",
+"occupation"
+],
+"params": {
+"min_frequency_pct": 0.01,
+"replacement_label": "Other"
+}
+},
+{
+"action": "transform_numeric_skewed",
+"target_columns": [
+"capital_gain",
+"capital_loss"
+],
+"params": {
+"skewness_threshold": 0.75,
+"method": "log1p",
+"model_family": "linear"
+}
+},
+{
+"action": "clip_outliers",
+"target_columns": [
+"age",
+"hours_per_week"
+],
+"params": {
+"method": "iqr",
+"iqr_k": 1.5
+}
+},
+{
+"action": "encode_categorical_per_column",
+"target_columns": [
+"workclass",
+"marital_status",
+"occupation",
+"relationship",
+"race",
+"sex",
+"native_country"
+],
+"params": {
+"column_encodings": {
+"workclass": "one_hot",
+"marital_status": "one_hot",
+"occupation": "one_hot",
+"relationship": "one_hot",
+"race": "one_hot",
+"sex": "one_hot",
+"native_country": "one_hot"
+},
+"default_method": "one_hot"
+}
+}
+]
+}

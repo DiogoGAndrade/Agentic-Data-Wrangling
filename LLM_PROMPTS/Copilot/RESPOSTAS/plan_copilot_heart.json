@@ -1,0 +1,56 @@
+{
+  "actions": [
+    {
+      "action": "handle_missing",
+      "target_columns": ["ca", "thal"],
+      "params": {"strategy": "median"}
+    },
+    {
+      "action": "add_missing_indicators",
+      "target_columns": ["ca", "thal"],
+      "params": {"min_na_rate": 0.05, "max_indicators": 10}
+    },
+    {
+      "action": "clip_outliers",
+      "target_columns": [
+        "age",
+        "trestbps",
+        "chol",
+        "thalach",
+        "oldpeak"
+      ],
+      "params": {"method": "iqr", "iqr_k": 1.5}
+    },
+    {
+      "action": "transform_numeric_skewed",
+      "target_columns": [
+        "trestbps",
+        "chol",
+        "thalach",
+        "oldpeak"
+      ],
+      "params": {"skewness_threshold": 0.75, "method": "log1p", "model_family": "linear"}
+    },
+    {
+      "action": "encode_categorical_per_column",
+      "target_columns": [
+        "sex",
+        "cp",
+        "fbs",
+        "restecg",
+        "exang",
+        "slope",
+        "ca",
+        "thal"
+      ],
+      "params": {
+        "column_encodings": {
+          "cp": "ordinal",
+          "slope": "ordinal",
+          "thal": "ordinal"
+        },
+        "default_method": "one_hot"
+      }
+    }
+  ]
+}
