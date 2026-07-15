@@ -1,0 +1,6 @@
+﻿respondent_id,q1_task_completed,q2_approximate_task_time,sus_1_would_use_frequently,sus_2_unnecessarily_complex,sus_3_easy_to_use,sus_4_need_technical_support,sus_5_functions_well_integrated,sus_6_too_much_inconsistency,sus_7_most_people_learn_quickly,sus_8_cumbersome_to_use,sus_9_felt_confident,sus_10_needed_to_learn_a_lot,q13_trusted_recommendations_without_manual_verification,q14_provenance_increased_confidence,q15_system_transparent_about_changes,q16_speed_vs_usual_approach,q17_output_quality_vs_manual,q18_preferred_interaction_model_over
+POST-001,"Yes, fully",< 5 minutes,5,2,4,2,5,1,5,1,5,1,5,5,4,Much faster,Better than what I would produce manually,"Fully manual scripting (e.g., pandas)"
+POST-002,"Yes, fully",< 5 minutes,5,1,4,2,4,1,4,2,4,2,3,5,5,Somewhat faster,About the same,"Fully manual scripting (e.g., pandas)"
+POST-003,"Yes, fully",< 5 minutes,3,3,3,3,4,2,3,2,3,3,3,4,4,Somewhat faster,About the same,"Fully manual scripting (e.g., pandas)"
+POST-004,"Yes, fully",5-15 minutes,5,1,4,1,5,1,4,1,5,1,4,5,5,Much faster,About the same,"Fully manual scripting (e.g., pandas)"
+POST-005,"Yes, fully",< 5 minutes,4,1,4,2,4,2,3,2,4,3,3,5,5,Much faster,Better than what I would produce manually,"Fully manual scripting (e.g., pandas)"
