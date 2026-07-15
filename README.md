@@ -6,12 +6,7 @@ cleaning plan for a tabular dataset; a deterministic guardrail layer rewrites or
 unsafe actions; an execution engine applies the corrected plan and logs full provenance.
 The guiding principle: the LLM proposes, the guardrails dispose.
 
-The empirical study behind this code compares five experimental conditions (raw data,
-generic cleaning, LLM with dataset context, LLM with model-aware context, and the full
-guardrail-enforced system) across nine tabular datasets, eight open-weight LLMs (3B to
-14B parameters), and four downstream ML algorithms under five-fold cross-validation.
-The result: once guardrails are enforced, downstream performance is invariant to model
-size, and the system never regresses below the raw-data baseline across 184 comparisons.
+The empirical study behind this code compares five experimental conditions across nine tabular datasets, eight open-weight LLMs from 3B to 14B parameters, and four downstream ML algorithms under five-fold cross-validation. Under the adopted practical Win/Tie/Loss threshold, no challenging-tier or held-out comparison was classified as a practically relevant LOSS. No meaningful downstream-performance differences were observed across the evaluated model sizes after guardrail enforcement.
 
 New to this repository and starting from zero? Read [SETUP.md](SETUP.md) first; it walks
 through installing every dependency, pulling models, and running both the app and the
