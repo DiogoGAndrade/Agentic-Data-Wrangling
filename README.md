@@ -44,6 +44,8 @@ llm/            LLM interface
   json_utils.py          Robust JSON extraction from model output
 evaluation/     Experiment harness, condition contexts, and analysis scripts
 tests/          Unit tests for the cleaning-action executors
+user_study/     Questionnaire instruments, reconstructed task instructions,
+                and anonymised aggregate results
 ```
 
 `data/`, `debug/`, and `evaluation/outputs/` are intentionally not version-controlled
